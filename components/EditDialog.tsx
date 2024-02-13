@@ -26,7 +26,7 @@ interface Field {
   isStatusChange?: boolean;
   isBookId?: boolean;
   isMemberId?: boolean;
-  isAuthorId?: boolean;
+  isAuthorId?: boolean;  
 }
 
 interface DynamicFormProps {
@@ -46,7 +46,7 @@ export default function DialogDemo({ fields }: DrawerDialogDemoProps) {
       <DialogTrigger asChild>
         <Button variant="outline">Edit</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit</DialogTitle>
           <DialogDescription>

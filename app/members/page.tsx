@@ -33,11 +33,10 @@ const MembersPage = () => {
   const [selectedMember, setSelectedMember] = React.useState(null);
 
   const memberFields = [
-    { name: "member_id", label: "Member ID", type: "number", readOnly: true, defaultValue: "" },
     { name: "member_first_name", label: "First Name", type: "text", defaultValue: "" },
     { name: "member_last_name", label: "Last Name", type: "text", defaultValue: "" },
     { name: "phone_1", label: "Phone 1", type: "tel", defaultValue: "" },
-    { name: "phone_2", label: "Phone 2", type: "tel", optional: true, defaultValue: "" },
+    { name: "phone_2", label: "Phone 2", type: "tel", optional: true, defaultValue: "", },
     { name: "street_1", label: "Street 1", type: "text", defaultValue: "" },
     { name: "street_2", label: "Street 2", type: "text", optional: true, defaultValue: "" },
     { name: "city", label: "City", type: "text", defaultValue: "" },
