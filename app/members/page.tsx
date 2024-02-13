@@ -8,9 +8,9 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive"; // Ensure this import path is correct
 import DialogDemo from "@/components/EditDialog";
+import AddDialog from "@/components/AddDialog";
 
 interface Member {
   member_id: number;
@@ -26,25 +26,59 @@ interface Member {
   zip_code: string;
   created_date: string;
   changed_date: string;
-  [key: string]: any; // Allows for indexing with a string to access other properties dynamically
+  [key: string]: any; 
 }
 
 const MembersPage = () => {
   const [selectedMember, setSelectedMember] = React.useState(null);
 
   const memberFields = [
-    { name: "member_first_name", label: "First Name", type: "text", defaultValue: "" },
-    { name: "member_last_name", label: "Last Name", type: "text", defaultValue: "" },
+    {
+      name: "member_first_name",
+      label: "First Name",
+      type: "text",
+      defaultValue: "",
+    },
+    {
+      name: "member_last_name",
+      label: "Last Name",
+      type: "text",
+      defaultValue: "",
+    },
     { name: "phone_1", label: "Phone 1", type: "tel", defaultValue: "" },
-    { name: "phone_2", label: "Phone 2", type: "tel", optional: true, defaultValue: "", },
+    {
+      name: "phone_2",
+      label: "Phone 2",
+      type: "tel",
+      optional: true,
+      defaultValue: "",
+    },
     { name: "street_1", label: "Street 1", type: "text", defaultValue: "" },
-    { name: "street_2", label: "Street 2", type: "text", optional: true, defaultValue: "" },
+    {
+      name: "street_2",
+      label: "Street 2",
+      type: "text",
+      optional: true,
+      defaultValue: "",
+    },
     { name: "city", label: "City", type: "text", defaultValue: "" },
     { name: "state", label: "State", type: "text", defaultValue: "" },
     { name: "country", label: "Country", type: "text", defaultValue: "" },
     { name: "zip_code", label: "Zip Code", type: "text", defaultValue: "" },
-    { name: "created_date", label: "Created Date", type: "date", readOnly: true, defaultValue: "" },
-    { name: "changed_date", label: "Changed Date", type: "date", readOnly: true, defaultValue: "" },
+    {
+      name: "created_date",
+      label: "Created Date",
+      type: "date",
+      readOnly: true,
+      defaultValue: "",
+    },
+    {
+      name: "changed_date",
+      label: "Changed Date",
+      type: "date",
+      readOnly: true,
+      defaultValue: "",
+    },
   ];
 
   // Static data for Members
@@ -64,27 +98,21 @@ const MembersPage = () => {
       created_date: "2023-01-01",
       changed_date: "2023-01-02",
     },
-    // Add more member objects here
   ];
 
   const handleEditClick = (member: any) => {
     setSelectedMember(member);
-    // Assuming you have a method to open the dialog, you'd call it here
   };
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-      <div className="border rounded-lg shadow-sm">
-        <Table>
+      <div className="border rounded-lg shadow-sm mb-8">
+        <div className="p-4 flex justify-between items-center ">
+          <h2 className="text-lg font-semibold">Members</h2>
+          <AddDialog fields={memberFields} />{" "}
+        </div>
+        <Table className="bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead
-                className="text-center text-black font-semibold text-lg py-2"
-                colSpan={12}
-              >
-                Members Table
-              </TableHead>
-            </TableRow>
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>First Name</TableHead>

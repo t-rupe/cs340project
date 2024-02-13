@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive";
 import DialogDemo from "@/components/EditDialog";
+import AddDialog from "@/components/AddDialog";
 
 interface Book {
   id: number;
@@ -22,14 +23,14 @@ interface Book {
   isbn: string;
   type: string;
   status: string;
-  [key: string]: number | string; // Add this line
+  [key: string]: number | string; 
 }
 
 interface AuthorBookRelation {
   bookId: string;
   bookTitle: string;
   authorName: string;
-  [key: string]: string; // Add this line for strings
+  [key: string]: string; 
 }
 export default function BooksPage() {
   const bookFields = [
@@ -112,7 +113,6 @@ export default function BooksPage() {
       type: "eBook",
       status: "Checked-Out",
     },
-    // Add more book objects as needed
   ];
 
   const authorBookRelations: AuthorBookRelation[] = [
@@ -167,7 +167,7 @@ export default function BooksPage() {
 
     if (!allFieldsFilled) {
       alert("Please fill out all fields before saving.");
-      return; // Prevent the save operation if any field is empty
+      return; 
     }
 
     setAddingNewBook(false);
@@ -189,18 +189,16 @@ export default function BooksPage() {
     }));
   };
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-      <div className="border rounded-lg shadow-sm">
-        <Table>
+    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-gray-100">
+      <div className="border rounded-lg shadow-sm mb-8 ">
+        <div className="p-4 flex justify-between items-center">
+          <h2 className="text-lg font-semibold">Books Table</h2>
+          <AddDialog fields={bookFields} />{" "}
+        </div>
+
+        <Table className="bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead
-                className="text-center text-black font-semibold text-lg py-2"
-                colSpan={8}
-              >
-                Books Table
-              </TableHead>
-            </TableRow>
+            <TableRow></TableRow>
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>Title</TableHead>
@@ -234,22 +232,17 @@ export default function BooksPage() {
                 </TableCell>
               </TableRow>
             ))}
-            {/* Add new book row logic here if necessary */}
           </TableBody>
         </Table>
       </div>
 
-      <div className="mt-8 border rounded-lg shadow-sm">
-        <Table>
+      <div className="border rounded-lg shadow-sm mb-8">
+        <div className="p-4 flex justify-between items-center ">
+          <h2 className="text-lg font-semibold">AuthorsBooks</h2>
+          <AddDialog fields={authorsBooksFields} />{" "}
+        </div>
+        <Table className="bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead
-                className="text-center text-black font-semibold text-lg py-2"
-                colSpan={4}
-              >
-                AuthorsBooks Relationship
-              </TableHead>
-            </TableRow>
             <TableRow>
               <TableHead>Book ID</TableHead>
               <TableHead>Book Title</TableHead>
@@ -268,12 +261,11 @@ export default function BooksPage() {
                 <TableCell className="flex justify-end">
                   <DialogDemo
                     fields={authorsBooksFields.map((field) => {
-                      // Assuming you want to set default values based on the current relation
                       let defaultValue = "";
                       if (field.name === "book_id") {
-                        defaultValue = relation.bookId; // Assuming this is correct and relation.bookId is a string
+                        defaultValue = relation.bookId; 
                       } else if (field.name === "author_name") {
-                        defaultValue = relation.authorName; // Assuming you have an author_name field or similar
+                        defaultValue = relation.authorName; 
                       }
                       return {
                         ...field,

@@ -22,7 +22,7 @@ import {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex min-h-screen w-full bg-gray-50">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
@@ -119,7 +119,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+        <main className="">{children}</main>
       </div>
     </div>
   );

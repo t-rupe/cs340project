@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import {
   TableHead,
@@ -9,10 +10,26 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive";
+import AddDialog from "@/components/AddDialog";
 
 const BookAuditPage = () => {
+
+    interface BookAudit {
+        book_audit_id: number;
+        book_id: number;
+        book_status: string;
+        changed_date: string;
+      }
+
+      const bookAuditFields = [
+        { name: "book_id", label: "Book ID", type: "number", isBookId: true },
+        { name: "book_status", label: "Book Status", type: "text", isStatusChange: true },
+        { name: "changed_date", label: "Changed Date", type: "date" },
+      ];
+      
+
   // Static data for BookAudit
-  const bookAudits = [
+  const bookAudits: BookAudit[] = [
     {
       book_audit_id: 1,
       book_id: 1,
@@ -36,17 +53,14 @@ const BookAuditPage = () => {
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-      <div className="border rounded-lg shadow-sm">
-        <Table>
+      <div className="border rounded-lg shadow-sm mb-8">
+        <div className="p-4 flex justify-between items-center ">
+          <h2 className="text-lg font-semibold">BookAudit</h2>
+          <AddDialog fields={bookAuditFields} />{" "}
+        </div>{" "}
+        <Table className="bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead
-                className="text-center text-black font-semibold text-lg py-2"
-                colSpan={4}
-              >
-                Book Audit Table
-              </TableHead>
-            </TableRow>
+          
             <TableRow>
               <TableHead>Audit ID</TableHead>
               <TableHead>Book ID</TableHead>
