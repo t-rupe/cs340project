@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   TableHead,
   TableRow,
@@ -8,17 +9,24 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-export default function AuthorsPage() {
+const AuthorsPage = () => {
+  const authors = [
+    { author_id: '1', author_first_name: 'Paulo', author_last_name: 'Coelho' },
+    { author_id: '2', author_first_name: 'Victor', author_last_name: 'Hugo' },
+    { author_id: '3', author_first_name: 'Jean', author_last_name: 'Valjean' },
+    { author_id: '4', author_first_name: 'Harper', author_last_name: 'Lee' },
+    { author_id: '5', author_first_name: 'F. Scott', author_last_name: 'Fitzgerald' },
+    { author_id: '6', author_first_name: 'George', author_last_name: 'Orwell' },
+    { author_id: '7', author_first_name: 'Jane', author_last_name: 'Austen' },
+  ];
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
       <div className="border rounded-lg shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead
-                className="text-center text-black font-semibold text-lg py-2"
-                colSpan={4}
-              >
+              <TableHead className="text-center text-black font-semibold text-lg py-2" colSpan={4}>
                 Authors Table
               </TableHead>
             </TableRow>
@@ -30,28 +38,17 @@ export default function AuthorsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="font-semibold">A001</TableCell>
-              <TableCell>Harper</TableCell>
-              <TableCell>Lee</TableCell>
-              <TableCell className="flex justify-end">
-                <Button className="mr-2" size="sm">
-                  Edit
-                </Button>
-                <Button size="sm">Delete</Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-semibold">A002</TableCell>
-              <TableCell>George</TableCell>
-              <TableCell>Orwell</TableCell>
-              <TableCell className="flex justify-end">
-                <Button className="mr-2" size="sm">
-                  Edit
-                </Button>
-                <Button size="sm">Delete</Button>
-              </TableCell>
-            </TableRow>
+            {authors.map((author, index) => (
+              <TableRow key={index}>
+                <TableCell>{author.author_id}</TableCell>
+                <TableCell>{author.author_first_name}</TableCell>
+                <TableCell>{author.author_last_name}</TableCell>
+                <TableCell className="flex justify-end">
+                  <Button className="mr-2" size="sm">Edit</Button>
+                  <Button size="sm">Delete</Button>
+                </TableCell>
+              </TableRow>
+            ))}
             <TableRow>
               <TableCell className="text-center" colSpan={4}>
                 <Button className="mt-4" size="sm">
@@ -64,4 +61,6 @@ export default function AuthorsPage() {
       </div>
     </main>
   );
-}
+};
+
+export default AuthorsPage;
