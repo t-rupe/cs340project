@@ -8,6 +8,7 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { AlertDialogDemo } from "@/components/AlertDestructive";
 
 const BookAuditPage = () => {
   // Static data for BookAudit
@@ -65,7 +66,7 @@ const BookAuditPage = () => {
                   <Button className="mr-2" size="sm">
                     Edit
                   </Button>
-                  <Button size="sm">Delete</Button>
+                  <AlertDialogDemo />
                 </TableCell>
               </TableRow>
             ))}

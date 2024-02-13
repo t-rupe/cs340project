@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   TableHead,
   TableRow,
@@ -8,16 +8,21 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { AlertDialogDemo } from "@/components/AlertDestructive"; // Ensure this import path is correct
 
 const AuthorsPage = () => {
   const authors = [
-    { author_id: '1', author_first_name: 'Paulo', author_last_name: 'Coelho' },
-    { author_id: '2', author_first_name: 'Victor', author_last_name: 'Hugo' },
-    { author_id: '3', author_first_name: 'Jean', author_last_name: 'Valjean' },
-    { author_id: '4', author_first_name: 'Harper', author_last_name: 'Lee' },
-    { author_id: '5', author_first_name: 'F. Scott', author_last_name: 'Fitzgerald' },
-    { author_id: '6', author_first_name: 'George', author_last_name: 'Orwell' },
-    { author_id: '7', author_first_name: 'Jane', author_last_name: 'Austen' },
+    { author_id: "1", author_first_name: "Paulo", author_last_name: "Coelho" },
+    { author_id: "2", author_first_name: "Neil", author_last_name: "Gaiman" },
+    { author_id: "3", author_first_name: "Terry", author_last_name: "Pratchett" },
+    { author_id: "4", author_first_name: "Harper", author_last_name: "Lee" },
+    {
+      author_id: "5",
+      author_first_name: "F. Scott",
+      author_last_name: "Fitzgerald",
+    },
+    { author_id: "6", author_first_name: "George", author_last_name: "Orwell" },
+    { author_id: "7", author_first_name: "Jane", author_last_name: "Austen" },
   ];
 
   return (
@@ -26,7 +31,10 @@ const AuthorsPage = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-center text-black font-semibold text-lg py-2" colSpan={4}>
+              <TableHead
+                className="text-center text-black font-semibold text-lg py-2"
+                colSpan={4}
+              >
                 Authors Table
               </TableHead>
             </TableRow>
@@ -44,8 +52,10 @@ const AuthorsPage = () => {
                 <TableCell>{author.author_first_name}</TableCell>
                 <TableCell>{author.author_last_name}</TableCell>
                 <TableCell className="flex justify-end">
-                  <Button className="mr-2" size="sm">Edit</Button>
-                  <Button size="sm">Delete</Button>
+                  <Button className="mr-2" size="sm">
+                    Edit
+                  </Button>
+                  <AlertDialogDemo />{" "}
                 </TableCell>
               </TableRow>
             ))}
