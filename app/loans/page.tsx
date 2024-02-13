@@ -35,7 +35,7 @@ const LoansPage = () => {
       date_checked_out: "2023-02-01",
       date_due: "2023-03-01",
       date_returned: null,
-      book_id: 1,
+      book_id: 4,
       member_id: 1,
       changed_date: "2023-02-01",
     },

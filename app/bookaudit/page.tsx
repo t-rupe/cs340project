@@ -32,7 +32,7 @@ const BookAuditPage = () => {
   const bookAudits: BookAudit[] = [
     {
       book_audit_id: 1,
-      book_id: 1,
+      book_id: 4,
       book_status: "Checked Out",
       changed_date: "2023-02-15",
     },
