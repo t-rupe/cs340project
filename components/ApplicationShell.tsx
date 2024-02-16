@@ -51,9 +51,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 <LucideHeartHandshake className="h-4 w-4" />
                 Loans
               </NavLink>
-              <NavLink href="bookaudit">
+              <NavLink href="bookaudits">
                 <Notebook className="h-4 w-4" />
-                BookAudit
+                BookAudits
               </NavLink>
             </nav>
           </div>
