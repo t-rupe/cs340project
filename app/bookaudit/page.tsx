@@ -77,7 +77,7 @@ const BookAuditPage = () => {
                 <TableCell>{audit.book_status}</TableCell>
                 <TableCell>{audit.changed_date}</TableCell>
                 <TableCell className="flex justify-end">
-                  <Button className="mr-2" size="sm">
+                  <Button variant="outline" className="mr-2" size="sm">
                     Edit
                   </Button>
                   <AlertDialogDemo />

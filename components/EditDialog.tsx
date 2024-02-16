@@ -44,7 +44,7 @@ export default function DialogDemo({ fields }: DrawerDialogDemoProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit</Button>
+        <Button className="mr-2 " size="sm" variant="outline">Edit</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>

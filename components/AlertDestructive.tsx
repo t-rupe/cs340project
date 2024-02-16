@@ -15,7 +15,7 @@ import {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button size="sm">Delete</Button>
+          <Button size="sm"> Delete</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>

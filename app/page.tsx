@@ -116,24 +116,27 @@ export default function BooksPage() {
   ];
 
   const authorBookRelations: AuthorBookRelation[] = [
-    { bookId: "1", bookTitle: "The Alchemist", authorName: "Paulo Coelho" },
-    { bookId: "2", bookTitle: "Good Omens", authorName: "Neil Gaiman" },
-    { bookId: "2", bookTitle: "Good Omens", authorName: "Terry Pratchett" },
+    { bookId: "1", bookTitle: "The Alchemist", authorName: "Paulo Coelho", authorId: "1" },
+    { bookId: "2", bookTitle: "Good Omens", authorName: "Neil Gaiman", authorId: "2" },
+    { bookId: "2", bookTitle: "Good Omens", authorName: "Terry Pratchett", authorId: "3" },
     {
       bookId: "3",
       bookTitle: "To Kill a Mockingbird",
       authorName: "Harper Lee",
+      authorId: "4",
     },
     {
       bookId: "4",
       bookTitle: "The Great Gatsby",
       authorName: "F. Scott Fitzgerald",
+      authorId: "5",
     },
-    { bookId: "5", bookTitle: "1984", authorName: "George Orwell" },
+    { bookId: "5", bookTitle: "1984", authorName: "George Orwell", authorId: "6" },
     {
       bookId: "6",
       bookTitle: "Pride and Prejudice",
       authorName: "Jane Austen",
+      authorId: "7",
     },
   ];
 
@@ -247,6 +250,7 @@ export default function BooksPage() {
               <TableHead>Book ID</TableHead>
               <TableHead>Book Title</TableHead>
               <TableHead>Author Name</TableHead>
+              <TableHead>Author ID</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -257,6 +261,7 @@ export default function BooksPage() {
                 <TableCell>{relation.bookId}</TableCell>
                 <TableCell>{relation.bookTitle}</TableCell>
                 <TableCell>{relation.authorName}</TableCell>
+                <TableCell>{relation.authorId}</TableCell>
                 <TableCell className="flex justify-end"></TableCell>
                 <TableCell className="flex justify-end">
                   <DialogDemo

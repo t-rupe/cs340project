@@ -70,7 +70,7 @@ const AuthorsPage = () => {
                 <TableCell>{author.author_first_name}</TableCell>
                 <TableCell>{author.author_last_name}</TableCell>
                 <TableCell className="flex justify-end">
-                  <Button className="mr-2" size="sm">
+                  <Button className="mr-2" variant="outline" size="sm">
                     Edit
                   </Button>
                   <AlertDialogDemo />{" "}

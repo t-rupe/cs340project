@@ -17,6 +17,7 @@ import {
   LucideHeartHandshake,
   Notebook,
   Pencil,
+  Search,
   User,
 } from "lucide-react";
 
@@ -33,35 +34,24 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
-            <NavLink href="/"
-                
-                >
+              <NavLink href="/">
                 <Book className="h-4 w-4" />
                 Books
               </NavLink>
-              <NavLink
-               
-                href="/authors"
-              >
+              <NavLink href="/authors">
                 <Pencil className="h-4 w-4" />
                 Authors
               </NavLink>
-              <NavLink
-                href="/members"
-              >
+              <NavLink href="/members">
                 <User className="h-4 w-4" />
                 Members
               </NavLink>
 
-              <NavLink
-                href="/loans"
-              >
+              <NavLink href="/loans">
                 <LucideHeartHandshake className="h-4 w-4" />
                 Loans
               </NavLink>
-              <NavLink
-                href="bookaudit"
-              >
+              <NavLink href="bookaudit">
                 <Notebook className="h-4 w-4" />
                 BookAudit
               </NavLink>
@@ -72,13 +62,12 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <div className="flex flex-col w-full">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
           <Link className="lg:hidden" href="#">
-            <BookIcon className="h-6 w-6" />
             <span className="sr-only">Books</span>
           </Link>
           <div className="w-full flex-1">
             <form>
               <div className="relative">
-                <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                 <Input
                   className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
                   placeholder="Search books..."
@@ -122,44 +111,5 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         <main className="">{children}</main>
       </div>
     </div>
-  );
-}
-
-function BookIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-    </svg>
-  );
-}
-
-function SearchIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
   );
 }
