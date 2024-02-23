@@ -24,7 +24,6 @@ const BookAuditPage = () => {
       const bookAuditFields = [
         { name: "book_id", label: "Book ID", type: "number", isBookId: true },
         { name: "book_status", label: "Book Status", type: "text", isStatusChange: true },
-        { name: "changed_date", label: "Changed Date", type: "date" },
       ];
       
 
