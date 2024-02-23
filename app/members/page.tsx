@@ -24,8 +24,6 @@ interface Member {
   state: string;
   country: string;
   zip_code: string;
-  created_date: string;
-  changed_date: string;
   [key: string]: any; 
 }
 
@@ -65,20 +63,7 @@ const MembersPage = () => {
     { name: "state", label: "State", type: "text", defaultValue: "" },
     { name: "country", label: "Country", type: "text", defaultValue: "" },
     { name: "zip_code", label: "Zip Code", type: "text", defaultValue: "" },
-    {
-      name: "created_date",
-      label: "Created Date",
-      type: "date",
-      readOnly: true,
-      defaultValue: "",
-    },
-    {
-      name: "changed_date",
-      label: "Changed Date",
-      type: "date",
-      readOnly: true,
-      defaultValue: "",
-    },
+   
   ];
 
   // Static data for Members

@@ -11,20 +11,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ComboBoxResponsive } from "@/components/LoansStatusChange";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BookFK } from "./BookFK";
+import { MemberFK } from "./MemberFK";
 
 interface Field {
     name: string;
+    isStatusChange?: boolean;
+
     label: string;
     defaultValue: string;
-    type: string; // You might want to be more specific here, e.g., "text" | "email" | "date"
+    type: string; 
+    isBookId?: boolean;
+    isMemberId?: boolean;
+  
   }
   
   interface DynamicFormProps {
     fields: Field[];
-    className?: string; // Making className optional
+    className?: string; 
   }
   
   interface DrawerDialogDemoProps {
@@ -44,7 +52,7 @@ export default function DialogDemo({ fields }: DrawerDialogDemoProps) {
           <DialogHeader>
             <DialogTitle>Edit</DialogTitle>
             <DialogDescription>
-              Make changes to the selected record. Submit to save changes.
+              Changing and then saving the Status will automatically update the related attributes for this record.
             </DialogDescription>
           </DialogHeader>
           <DynamicForm fields={fields} />
@@ -59,7 +67,18 @@ export default function DialogDemo({ fields }: DrawerDialogDemoProps) {
         {fields.map((field, index) => (
           <div key={index} className="grid gap-2">
             <Label htmlFor={field.name}>{field.label}</Label>
+            {field.isStatusChange ? (
+            <ComboBoxResponsive defaultValue={field.defaultValue.toString()} />
+          ) :
+          field.isBookId ? (
+            // Assuming BookFK and MemberFK components accept a `defaultValue` to preselect the value
+            <BookFK defaultValue={field.defaultValue.toString()} />
+          ) : field.isMemberId ? (
+            <MemberFK defaultValue={field.defaultValue.toString()} />
+          ) :
+          (
             <Input type={field.type} id={field.name} defaultValue={field.defaultValue} />
+          )}
           </div>
         ))}
         <Button type="submit">Save changes</Button>

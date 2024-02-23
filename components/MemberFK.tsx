@@ -42,7 +42,7 @@ export function MemberFK({ defaultValue }: { defaultValue?: string }) {
 
   React.useEffect(() => {
     // Update selectedMemberId if defaultValue changes
-    setSelectedMemberId(defaultValue || "");
+    setSelectedMemberId("");
   }, [defaultValue]);
 
   

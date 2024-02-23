@@ -8,21 +8,15 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive"; // Ensure this import path is correct
-import { DialogDemo } from "@/components/EditDialog";
-import { Dialog } from "@radix-ui/react-dialog";
+import { DialogDemo } from "@/components/LoansEdit";
 import AddDialog from "@/components/AddDialog";
 
 type Loan = {
   loan_id: number;
   loan_status: string;
-  date_checked_out: string;
-  date_due: string;
-  date_returned: string | null;
   book_id: number;
   member_id: number;
-  changed_date: string;
   [key: string]: number | string | null;
 };
 
@@ -51,19 +45,6 @@ const LoansPage = () => {
       isStatusChange: true,
     },
     {
-      name: "date_checked_out",
-      label: "Date Checked Out",
-      defaultValue: "",
-      type: "date",
-    },
-    { name: "date_due", label: "Date Due", defaultValue: "", type: "date" },
-    {
-      name: "date_returned",
-      label: "Date Returned",
-      defaultValue: "",
-      type: "date",
-    },
-    {
       name: "book_id",
       label: "Book ID",
       defaultValue: "",
@@ -77,12 +58,7 @@ const LoansPage = () => {
       type: "number",
       isMemberId: true,
     },
-    {
-      name: "changed_date",
-      label: "Changed Date",
-      defaultValue: "",
-      type: "date",
-    },
+   
   ];
 
   return (

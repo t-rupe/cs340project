@@ -42,7 +42,7 @@ export function BookFK({ defaultValue }: { defaultValue?: string }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] outline-red-700 justify-between"
         >
           {selectedBookId
             ? authorBookRelations.find((book) => book.bookId === selectedBookId)?.bookTitle

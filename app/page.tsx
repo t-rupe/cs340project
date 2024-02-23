@@ -18,107 +18,98 @@ import AddDialog from "@/components/AddDialog";
 interface Book {
   id: number;
   title: string;
-  authors: string;
   category: string;
   isbn: string;
   type: string;
-  status: string;
-  [key: string]: number | string; 
+  [key: string]: number | string;
 }
 
 interface AuthorBookRelation {
   bookId: string;
   bookTitle: string;
   authorName: string;
-  [key: string]: string; 
+  [key: string]: string;
 }
 export default function BooksPage() {
   const bookFields = [
     { name: "title", label: "Title", defaultValue: "", type: "text" },
-    { name: "authors", label: "Authors", defaultValue: "", type: "text" },
     { name: "category", label: "Category", defaultValue: "", type: "text" },
     { name: "isbn", label: "ISBN", defaultValue: "", type: "text" },
     { name: "type", label: "Type", defaultValue: "", type: "text" },
-    {
-      name: "status",
-      label: "Status",
-      defaultValue: "",
-      type: "text",
-      isStatusChange: true,
-    },
   ];
 
   const [addingNewBook, setAddingNewBook] = useState(false);
   const [newBookData, setNewBookData] = useState({
     title: "",
-    authors: "",
     category: "",
     isbn: "",
     type: "",
-    status: "",
   });
 
   const books: Book[] = [
     {
       id: 1,
       title: "The Alchemist",
-      authors: "Paulo Coelho",
       category: "Adventure",
       isbn: "978-0062315007",
       type: "ePub",
-      status: "Available",
     },
     {
       id: 2,
       title: "Good Omens",
-      authors: "Neil Gaiman, Terry Pratchett",
       category: "Fantasy, Comedy",
       isbn: "978-0060853983",
       type: "PDF",
-      status: "Available",
     },
     {
       id: 3,
       title: "To Kill a Mockingbird",
-      authors: "Harper Lee",
       category: "Classic",
       isbn: "978-0061120084",
       type: "ePub",
-      status: "Available",
     },
     {
       id: 4,
       title: "The Great Gatsby",
-      authors: "F. Scott Fitzgerald",
       category: "Classic",
       isbn: "978-0743273565",
       type: "eBook",
-      status: "Checked-Out",
     },
     {
       id: 5,
       title: "1984",
-      authors: "George Orwell",
       category: "Dystopian",
       isbn: "978-0451524935",
       type: "ePub",
-      status: "Available",
     },
     {
       id: 6,
       title: "Pride and Prejudice",
-      authors: "Jane Austen",
       category: "Classic",
       isbn: "978-0486280486",
       type: "eBook",
-      status: "Checked-Out",
     },
   ];
 
   const authorBookRelations: AuthorBookRelation[] = [
-    { bookId: "1", bookTitle: "The Alchemist", authorName: "Paulo Coelho", authorId: "1" },
-    { bookId: "2", bookTitle: "Good Omens", authorName: "Neil Gaiman", authorId: "2" },
-    { bookId: "2", bookTitle: "Good Omens", authorName: "Terry Pratchett", authorId: "3" },
+    {
+      bookId: "1",
+      bookTitle: "The Alchemist",
+      authorName: "Paulo Coelho",
+      authorId: "1",
+    },
+    {
+      bookId: "2",
+      bookTitle: "Good Omens",
+      authorName: "Neil Gaiman",
+      authorId: "2",
+    },
+    {
+      bookId: "2",
+      bookTitle: "Good Omens",
+      authorName: "Terry Pratchett",
+      authorId: "3",
+    },
     {
       bookId: "3",
       bookTitle: "To Kill a Mockingbird",
@@ -131,7 +122,12 @@ export default function BooksPage() {
       authorName: "F. Scott Fitzgerald",
       authorId: "5",
     },
-    { bookId: "5", bookTitle: "1984", authorName: "George Orwell", authorId: "6" },
+    {
+      bookId: "5",
+      bookTitle: "1984",
+      authorName: "George Orwell",
+      authorId: "6",
+    },
     {
       bookId: "6",
       bookTitle: "Pride and Prejudice",
@@ -170,17 +166,15 @@ export default function BooksPage() {
 
     if (!allFieldsFilled) {
       alert("Please fill out all fields before saving.");
-      return; 
+      return;
     }
 
     setAddingNewBook(false);
     setNewBookData({
       title: "",
-      authors: "",
       category: "",
       isbn: "",
       type: "",
-      status: "",
     });
   };
 
@@ -205,11 +199,9 @@ export default function BooksPage() {
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>Title</TableHead>
-              <TableHead>Authors</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>ISBN</TableHead>
               <TableHead>Type</TableHead>
-              <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -218,11 +210,9 @@ export default function BooksPage() {
               <TableRow key={book.id}>
                 <TableCell className="font-semibold">{book.id}</TableCell>
                 <TableCell className="font-semibold">{book.title}</TableCell>
-                <TableCell>{book.authors}</TableCell>
                 <TableCell>{book.category}</TableCell>
                 <TableCell>{book.isbn}</TableCell>
                 <TableCell>{book.type}</TableCell>
-                <TableCell>{book.status}</TableCell>
                 <TableCell className="flex justify-end">
                   <DialogDemo
                     fields={bookFields.map((field) => ({
@@ -268,9 +258,9 @@ export default function BooksPage() {
                     fields={authorsBooksFields.map((field) => {
                       let defaultValue = "";
                       if (field.name === "book_id") {
-                        defaultValue = relation.bookId; 
+                        defaultValue = relation.bookId;
                       } else if (field.name === "author_name") {
-                        defaultValue = relation.authorName; 
+                        defaultValue = relation.authorName;
                       }
                       return {
                         ...field,
