@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   TableHead,
@@ -31,6 +31,22 @@ interface AuthorBookRelation {
   [key: string]: string;
 }
 export default function BooksPage() {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/db');
+        console.log(response)
+        const data = await response.json();
+        console.log(data)
+      } catch (error) {
+        console.error("Failed to fetch tables", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   const bookFields = [
     { name: "title", label: "Title", defaultValue: "", type: "text" },
     { name: "category", label: "Category", defaultValue: "", type: "text" },
