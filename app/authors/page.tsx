@@ -9,7 +9,7 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { AlertDialogDemo } from "@/components/AlertDestructive"; // Ensure this import path is correct
+import { AlertDialogDemo } from "@/components/AlertDestructive"; 
 import AddDialog from "@/components/AddDialog";
 
 const AuthorsPage = () => {

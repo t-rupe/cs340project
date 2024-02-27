@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/ApplicationShell";
 import { ActiveLinkProvider } from "../app/contexts/ActiveLinkContext";
-import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

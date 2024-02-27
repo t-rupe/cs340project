@@ -8,7 +8,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { AlertDialogDemo } from "@/components/AlertDestructive"; // Ensure this import path is correct
+import { AlertDialogDemo } from "@/components/AlertDestructive"; 
 import DialogDemo from "@/components/EditDialog";
 import AddDialog from "@/components/AddDialog";
 

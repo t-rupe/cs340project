@@ -18,7 +18,7 @@ export default async function Footer() {
           <img
             style={{ position: "relative", top: "5px" }}
             className="h-6 w-6"
-            src={gif} // replace with your gif path
+            src={gif} 
             alt="Github"
           />
           <span className="sr-only">Github</span>
