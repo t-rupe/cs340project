@@ -14,13 +14,20 @@ import { deleteAuthor } from "@/app/utils/Authors/deleteAuthor";
 import { useToast } from "./ui/use-toast";
 
 type AlertDialogDemoProps = {
-  id: number;
+  id?: number | undefined;
 };
 
 export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
   const { toast } = useToast();
 
   const handleDelete = async () => {
+    if (id === undefined) {
+      toast({
+        description: "Author ID is undefined 😞",
+      });
+      return;
+    }
+  
     try {
       const response = await deleteAuthor(id);
       toast({
@@ -35,6 +42,7 @@ export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
       });
     }
   };
+  
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
