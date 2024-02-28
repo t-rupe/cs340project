@@ -27,6 +27,7 @@ const schema = z.object({
     .max(255, { message: "First name is too long" }),
   last_name: z
     .string()
+    .trim()
     .min(1, { message: "Last name is required" })
     .max(255, { message: "Last name is too long" }),
 });

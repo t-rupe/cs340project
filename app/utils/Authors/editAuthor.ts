@@ -4,9 +4,19 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const schema = z.object({
-  first_name: z.string().min(1, { message: "First name is required" }),
-  last_name: z.string().min(1, { message: "Last name is required" }),
+  id: z.number().optional(),
+  first_name: z
+    .string()
+    .trim()
+    .min(1, { message: "First name is required" })
+    .max(255, { message: "First name is too long" }),
+  last_name: z
+    .string()
+    .trim()
+    .min(1, { message: "Last name is required" })
+    .max(255, { message: "Last name is too long" }),
 });
+
 
 
 export const editAuthor = async (authorId: number, author: unknown) => {
