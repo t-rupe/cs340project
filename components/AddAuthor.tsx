@@ -60,7 +60,11 @@ export default function AddAuthor() {
         description: response.error.first_name || response.error.last_name,
       });
     }
+
     setOpen(false);
+    toast({
+      description: "Author added! 🥳",
+    });
   };
 
   return (
@@ -97,15 +101,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button
-      onClick={() => {
-        toast({
-          description: "Author added! 🥳",
-        });
-      }}
-      type="submit"
-      aria-disabled={pending}
-    >
+    <Button type="submit" aria-disabled={pending}>
       {pending ? "Adding..." : "Add Author"}
     </Button>
   );

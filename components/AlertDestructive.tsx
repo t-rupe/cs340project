@@ -23,7 +23,7 @@ export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
   const handleDelete = async () => {
     if (id === undefined) {
       toast({
-        description: "Author ID is undefined 😞",
+        description: "Error: id undefined 😞",
       });
       return;
     }
@@ -32,7 +32,7 @@ export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
       const response = await deleteAuthor(id);
       toast({
         variant: "destructive",
-        description: "Author deleted! 😢",
+        description: "Author deleted! 😱",
       });
       console.log(response.message);
     } catch (error) {
