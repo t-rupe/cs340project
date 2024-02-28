@@ -33,7 +33,6 @@ const LoansPage = () => {
       member_id: 1,
       changed_date: "2023-02-01",
     },
-    // Add more loan objects as needed
   ];
 
   const loanFields = [

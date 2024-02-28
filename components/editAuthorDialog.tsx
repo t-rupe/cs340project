@@ -29,7 +29,7 @@ interface Field {
 
 interface DynamicFormProps {
   fields: Field[];
-  className?: string; // Making className optional
+  className?: string; 
 }
 
 

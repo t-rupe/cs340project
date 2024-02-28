@@ -71,7 +71,7 @@ export default function DialogDemo({ fields }: DrawerDialogDemoProps) {
             <ComboBoxResponsive defaultValue={field.defaultValue.toString()} />
           ) :
           field.isBookId ? (
-            // Assuming BookFK and MemberFK components accept a `defaultValue` to preselect the value
+       
             <BookFK defaultValue={field.defaultValue.toString()} />
           ) : field.isMemberId ? (
             <MemberFK defaultValue={field.defaultValue.toString()} />

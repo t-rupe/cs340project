@@ -31,7 +31,7 @@ interface Field {
 
 interface DynamicFormProps {
   fields: Field[];
-  className?: string; // Making className optional
+  className?: string; 
 }
 
 interface DrawerDialogDemoProps {
@@ -71,8 +71,8 @@ function DynamicForm({ fields, className }: DynamicFormProps) {
             <BookFK defaultValue={field.defaultValue.toString()} />
           ) : field.isMemberId ? (
             <MemberFK defaultValue={field.defaultValue.toString()} />
-          ) : field.isAuthorId ? ( // Check if the field is for the author ID
-            <AuthorFK defaultValue={field.defaultValue.toString()} /> // Render AuthorFK component
+          ) : field.isAuthorId ? ( 
+            <AuthorFK defaultValue={field.defaultValue.toString()} /> 
           ) : (
             <Input
               type={field.type}

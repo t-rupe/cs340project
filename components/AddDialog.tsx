@@ -72,7 +72,6 @@ function DynamicForm({ fields, className }: DynamicFormProps) {
         <div key={index} className="grid gap-2">
           <Label htmlFor={field.name}>{field.label}</Label>
           {
-            // Render components based on field type without defaultValue
             field.isStatusChange ? <ComboBoxResponsive /> :
             field.isBookId ? <BookFK /> :
             field.isMemberId ? <MemberFK /> :
