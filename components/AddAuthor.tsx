@@ -14,16 +14,52 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { addAuthor } from "@/app/utils/Authors/addAuthor";
 import { useFormStatus } from "react-dom";
-import { useToast } from "./ui/use-toast";
+import { toast, useToast } from "./ui/use-toast";
+import { useFormState } from "react-dom";
+import { set, z } from "zod";
+
+const schema = z.object({
+  id: z.number().optional(),
+  first_name: z
+    .string()
+    .trim()
+    .min(1, { message: "First name is required" })
+    .max(255, { message: "First name is too long" }),
+  last_name: z
+    .string()
+    .min(1, { message: "Last name is required" })
+    .max(255, { message: "Last name is too long" }),
+});
 
 export default function AddAuthor() {
   const [open, setOpen] = React.useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    addAuthor(formData);
+  const clientAction = async (formData: FormData) => {
+    const author = {
+      first_name: formData.get("first_name"),
+      last_name: formData.get("last_name"),
+    };
 
+    const result = schema.safeParse(author);
+    if (!result.success) {
+      const message = result.error.flatten().fieldErrors;
+
+      toast({
+        variant: "destructive",
+        description: message.first_name || message.last_name,
+      });
+
+      return;
+    }
+
+    const response = await addAuthor(result.data);
+
+    if (response?.error) {
+      toast({
+        variant: "destructive",
+        description: response.error.first_name || response.error.last_name,
+      });
+    }
     setOpen(false);
   };
 
@@ -39,7 +75,7 @@ export default function AddAuthor() {
             Fill in the details to add a new author.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className={cn("grid items-start gap-4")}>
+        <form action={clientAction} className={cn("grid items-start gap-4")}>
           <div className="grid gap-2">
             <Label htmlFor="first_name">First Name</Label>
             <Input id="first_name" name="first_name" />

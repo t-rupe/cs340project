@@ -24,7 +24,7 @@ export default function RootLayout({
           <Shell>{children}</Shell>
 
         </ActiveLinkProvider>
-      <Toaster />
+      <Toaster  />
       </body>
     </html>
   );
