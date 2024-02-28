@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/ApplicationShell";
 import { ActiveLinkProvider } from "../app/contexts/ActiveLinkContext";
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
           <Shell>{children}</Shell>
 
         </ActiveLinkProvider>
-
+      <Toaster />
       </body>
     </html>
   );

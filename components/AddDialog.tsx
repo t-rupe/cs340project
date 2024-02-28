@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { MemberFK } from "./MemberFK";
 import { AuthorFK } from "./AuthorFK";
 import { cn } from "@/lib/utils";
+import { addAuthor } from '@/app/utils/Authors/addAuthor';
+import { useFormStatus } from 'react-dom';
 
 interface Field {
   name: string;
@@ -49,9 +51,23 @@ export default function AddDialog({ fields }: AddDialogProps) {
   );
 }
 
-function DynamicForm({ fields, className }: DynamicFormProps) {
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
   return (
-    <form className={cn("grid items-start gap-4", className)}>
+    <Button type="submit" aria-disabled={pending}>
+      {pending ? 'Adding...' : 'Add Record'}
+    </Button>
+  );
+}
+
+
+function DynamicForm({ fields, className }: DynamicFormProps) {
+
+
+
+  return (
+    <form  className={cn("grid items-start gap-4", className)}>
       {fields.map((field, index) => (
         <div key={index} className="grid gap-2">
           <Label htmlFor={field.name}>{field.label}</Label>
@@ -65,7 +81,7 @@ function DynamicForm({ fields, className }: DynamicFormProps) {
           }
         </div>
       ))}
-      <Button type="submit">Add Record</Button>
+      <SubmitButton />
     </form>
   );
 }
