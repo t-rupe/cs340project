@@ -15,7 +15,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { editAuthor } from "@/app/utils/Authors/editAuthor";
 import { useFormStatus } from "react-dom";
-import { useToast } from "./ui/use-toast";
+import { z } from 'zod'
+import { toast, useToast } from "./ui/use-toast";
+
+
 
 interface Field {
   name: string;
@@ -40,6 +43,20 @@ interface EditAuthorDialogProps {
     author: Author;
   }
 
+  const schema = z.object({
+    id: z.number().optional(),
+    first_name: z
+      .string()
+      .trim()
+      .min(1, { message: "First name is required" })
+      .max(255, { message: "First name is too long" }),
+    last_name: z
+      .string()
+      .min(1, { message: "Last name is required" })
+      .max(255, { message: "Last name is too long" }),
+  });
+
+
   export default function EditAuthorDialog({ author }: EditAuthorDialogProps) {
     const [open, setOpen] = React.useState(false);
   
@@ -49,16 +66,45 @@ interface EditAuthorDialogProps {
       { name: 'last_name', label: 'Last Name', defaultValue: author.last_name, type: 'text' },
     ];
 
+    const clientAction = async (formData: FormData) => {
+      const newAuthor = {
+        author_id: author.author_id,
+        first_name: formData.get("first_name"),
+        last_name: formData.get("last_name"),
+      };
+  
+      const result = schema.safeParse(newAuthor);
+      if (!result.success) {
+        const message = result.error.flatten().fieldErrors;
+  
+        toast({
+          variant: "destructive",
+          description: message.first_name || message.last_name,
+        });
+  
+        return;
+      }
+  
+      const response = await editAuthor(newAuthor.author_id, result.data);
+  
+      if (response?.error) {
+        toast({
+          variant: "destructive",
+          description: response.error.first_name || response.error.last_name,
+        });
+      }
+  
+      setOpen(false);
+      toast({
+        description: "Author updated! 🥳",
+      });
+    };
+
+    
+
 
   
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const editAuthorWithId = editAuthor.bind(null, author.author_id);
-        editAuthorWithId(formData);
-      
-        setOpen(false);
-      };  
+   
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
@@ -71,7 +117,7 @@ interface EditAuthorDialogProps {
               Make changes to the selected author. Submit to save changes.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className={cn("grid items-start gap-4")}>
+          <form action={clientAction} className={cn("grid items-start gap-4")}>
             <DynamicForm fields={fields} />
             <SubmitButton />
           </form>
@@ -105,11 +151,7 @@ function DynamicForm({ fields, className }: DynamicFormProps) {
   
     return (
       <Button
-        onClick={() => {
-          toast({
-            description: "Author updated! 🥳",
-          });
-        }}
+     
         type="submit"
         aria-disabled={pending}
       >

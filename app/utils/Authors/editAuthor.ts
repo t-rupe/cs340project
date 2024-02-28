@@ -1,22 +1,29 @@
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
-export const editAuthor = async (authorId: number, formData: FormData) => {
+const schema = z.object({
+  first_name: z.string().min(1, { message: "First name is required" }),
+  last_name: z.string().min(1, { message: "Last name is required" }),
+});
+
+
+export const editAuthor = async (authorId: number, author: unknown) => {
+
+  const result = schema.safeParse(author);
+  if (!result.success) {
+    const message = result.error.flatten().fieldErrors;
+
+    return {
+      error: message,
+    };
+  }
+
   const client = await db.connect();
 
-  console.log(formData);
-
-  const firstName = formData.get("first_name");
-  const lastName = formData.get("last_name");
-
-  if (firstName === null || lastName === null) {
-    throw new Error("Missing form data");
-  }
-
-  if (typeof firstName !== "string" || typeof lastName !== "string") {
-    throw new Error("Invalid form data");
-  }
+  const firstName = result.data.first_name;
+  const lastName = result.data.last_name;
 
   const { rows } = await client.sql`
   UPDATE Authors 
