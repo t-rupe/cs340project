@@ -23,7 +23,6 @@ import {
 import Footer from "./Footer";
 
 export default function Shell({ children }: { children: React.ReactNode }) {
-
   return (
     <div className="flex min-h-screen w-full bg-gray-50">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -111,12 +110,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </DropdownMenu>
         </header>
 
-        <main className="">{children}</main>
+        <main>{children}</main>
         <Footer />
-
       </div>
-
     </div>
-    
   );
 }

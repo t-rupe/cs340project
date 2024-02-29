@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils";
 import { addAuthor } from "@/app/utils/Authors/addAuthor";
 import { useFormStatus } from "react-dom";
 import { toast, useToast } from "./ui/use-toast";
-import { useFormState } from "react-dom";
-import { set, z } from "zod";
+import { z } from "zod";
 
+// Zod schema for validating the input
 const schema = z.object({
   id: z.number().optional(),
   first_name: z
@@ -35,16 +35,21 @@ const schema = z.object({
 export default function AddAuthor() {
   const [open, setOpen] = React.useState(false);
 
+  // Client action to add a new author
   const clientAction = async (formData: FormData) => {
+    // Destructures the input from the 'Add New Author' form
     const author = {
       first_name: formData.get("first_name"),
       last_name: formData.get("last_name"),
     };
 
+    // Validates the input and returns early if the input is invalid. 
     const result = schema.safeParse(author);
     if (!result.success) {
+      // Destructures the error message
       const message = result.error.flatten().fieldErrors;
 
+      // Displays a toast message if the input is invalid
       toast({
         variant: "destructive",
         description: message.first_name || message.last_name,
@@ -53,8 +58,10 @@ export default function AddAuthor() {
       return;
     }
 
+    // Sends a request to add a new author to the server action 'addAuthor'
     const response = await addAuthor(result.data);
 
+    // if the response contains an error, display a toast message
     if (response?.error) {
       toast({
         variant: "destructive",
@@ -62,6 +69,7 @@ export default function AddAuthor() {
       });
     }
 
+    // If the response is successful, close the dialog and display a 'successful' toast message
     setOpen(false);
     toast({
       description: "Author added! 🥳",
@@ -80,6 +88,7 @@ export default function AddAuthor() {
             Fill in the details to add a new author.
           </DialogDescription>
         </DialogHeader>
+        {/* pass the clientAction to the AddAuthor input form */}
         <form action={clientAction} className={cn("grid items-start gap-4")}>
           <div className="grid gap-2">
             <Label htmlFor="first_name">First Name</Label>
@@ -97,10 +106,10 @@ export default function AddAuthor() {
 }
 
 function SubmitButton() {
-  const { toast } = useToast();
 
   const { pending } = useFormStatus();
 
+  // Displays a 'pending' button while the form is being submitted
   return (
     <Button type="submit" aria-disabled={pending}>
       {pending ? "Adding..." : "Add Author"}

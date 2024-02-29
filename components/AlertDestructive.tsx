@@ -52,7 +52,7 @@ export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete record
+            This action cannot be undone. This will permanently delete a record
             from the system and cannot be recovered.
           </AlertDialogDescription>
         </AlertDialogHeader>

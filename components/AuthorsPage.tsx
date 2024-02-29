@@ -7,7 +7,6 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive";
 import AddAuthor from "./AddAuthor";
 import EditAuthorDialog from "./editAuthorDialog";
@@ -27,6 +26,7 @@ const AuthorsPage = ({ data }: AuthorsPageProps) => {
       <div className="border rounded-lg shadow-sm mb-8">
         <div className="p-4 flex justify-between items-center">
           <h2 className="text-lg font-semibold">Authors</h2>
+          {/* Below is the component for the AddAuthor Dialog */}
           <AddAuthor />
         </div>
         <Table className="bg-white">
@@ -45,7 +45,9 @@ const AuthorsPage = ({ data }: AuthorsPageProps) => {
                 <TableCell>{author.first_name}</TableCell>
                 <TableCell>{author.last_name}</TableCell>
                 <TableCell className="flex justify-end">
+                  {/* Below is the component for the EditAuthor Dialog */}
                   <EditAuthorDialog author={author} />
+                  {/* Below is the component for the Delete Dialog (only works for authors currently) */}
                   <AlertDialogDemo id={author.author_id} />
                 </TableCell>
               </TableRow>
