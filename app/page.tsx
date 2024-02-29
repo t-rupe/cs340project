@@ -10,7 +10,6 @@ import {
   Table,
 } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/AlertDestructive";
 import DialogDemo from "@/components/EditDialog";
 import AddDialog from "@/components/AddDialog";
@@ -157,9 +156,7 @@ export default function BooksPage() {
 
   const isValidInput = (value: any) => value.trim() !== "";
 
-  const handleAddNewBook = () => {
-    setAddingNewBook(true);
-  };
+
 
   const handleSaveNewBook = () => {
     const allFieldsFilled = Object.values(newBookData).every(
@@ -180,13 +177,7 @@ export default function BooksPage() {
     });
   };
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setNewBookData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 bg-gray-50">
       <div className="border rounded-lg shadow-sm mb-8 ">
