@@ -1,6 +1,8 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
+// This is the route that creates the tables in the database.
+
 export async function GET() {
   try {
 
