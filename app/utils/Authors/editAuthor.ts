@@ -42,7 +42,6 @@ export const editAuthor = async (authorId: number, author: unknown) => {
   UPDATE Authors 
   SET first_name = ${firstName}, last_name = ${lastName} 
   WHERE author_id = ${authorId}
-  RETURNING author_id, first_name, last_name;
 `;
 
   // Releases the connection back to the pool

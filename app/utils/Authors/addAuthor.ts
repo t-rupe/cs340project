@@ -42,7 +42,6 @@ export const addAuthor = async (author: unknown) => {
   const { rows } = await client.sql`
     INSERT INTO Authors (first_name, last_name) 
     VALUES (${firstName}, ${lastName}) 
-    RETURNING author_id, first_name, last_name;
   `;
   client.release();
 
