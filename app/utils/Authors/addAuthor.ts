@@ -3,6 +3,7 @@ import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+// Zod schema for validating the input
 const schema = z.object({
   id: z.number().optional(),
   first_name: z
@@ -20,6 +21,8 @@ const schema = z.object({
 
 
 export const addAuthor = async (author: unknown) => {
+
+  // Validates the input and returns early if the input is invalid
   const result = schema.safeParse(author);
   if (!result.success) {
     const message = result.error.flatten().fieldErrors;
@@ -31,9 +34,11 @@ export const addAuthor = async (author: unknown) => {
 
   const client = await db.connect();
 
+  // Destructures the input
   const firstName = result.data.first_name;
   const lastName = result.data.last_name;
 
+  // Inserts the author into the database
   const { rows } = await client.sql`
     INSERT INTO Authors (first_name, last_name) 
     VALUES (${firstName}, ${lastName}) 
@@ -41,6 +46,7 @@ export const addAuthor = async (author: unknown) => {
   `;
   client.release();
 
+  // Refreshes the cache for the authors page
   revalidatePath("/authors");
   return rows[0];
 };
