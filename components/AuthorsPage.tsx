@@ -7,9 +7,10 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { AlertDialogDemo } from "@/components/AlertDestructive";
+import { DeleteButton } from "@/components/AlertDestructive";
 import AddAuthor from "./AddAuthor";
 import EditAuthorDialog from "./editAuthorDialog";
+import { deleteAuthor } from "@/app/utils/Authors/deleteAuthor";
 
 type Author = {
   author_id: number;
@@ -48,7 +49,7 @@ const AuthorsPage = ({ data }: AuthorsPageProps) => {
                   {/* Below is the component for the EditAuthor Dialog */}
                   <EditAuthorDialog author={author} />
                   {/* Below is the component for the Delete Dialog (only works for authors currently) */}
-                  <AlertDialogDemo id={author.author_id} />
+                  <DeleteButton deleteFunction={deleteAuthor} id={author.author_id} />
                 </TableCell>
               </TableRow>
             ))}

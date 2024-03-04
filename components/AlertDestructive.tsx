@@ -10,14 +10,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteAuthor } from "@/app/utils/Authors/deleteAuthor";
 import { useToast } from "./ui/use-toast";
 
-type AlertDialogDemoProps = {
+type DeleteButtonProps = {
   id?: number | undefined;
+  deleteFunction: (id: number) => Promise<any>;
 };
 
-export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
+export function DeleteButton({ id, deleteFunction }: DeleteButtonProps) {
   const { toast } = useToast();
 
   const handleDelete = async () => {
@@ -29,16 +29,16 @@ export function AlertDialogDemo({ id }: AlertDialogDemoProps) {
     }
   
     try {
-      const response = await deleteAuthor(id);
+      const response = await deleteFunction(id); // Use the deleteFunction prop here
       toast({
         variant: "destructive",
-        description: "Author deleted! 😱",
+        description: `Item id ${id} deleted! 😱`,
       });
       console.log(response.message);
     } catch (error) {
       console.error(error);
       toast({
-        description: "Failed to delete the author 😞",
+        description: "Failed to delete the item 😞",
       });
     }
   };
