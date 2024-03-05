@@ -65,7 +65,7 @@ const BooksPage = ({ data }: BookPageProps) => {
                   {/* Below is the component for the Editbook Dialog */}
                   <EditBookDialog book={book} />
                   {/* Below is the component for the Delete Dialog, requires an id and the delete action*/}
-                  <DeleteButton id={book.book_id} deleteFunction={deleteBook} />
+                  <DeleteButton id={book.book_id} deleteFunction={deleteBook} type="Book"/>
                 </TableCell>
               </TableRow>
             ))}

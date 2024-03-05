@@ -49,7 +49,11 @@ const AuthorsPage = ({ data }: AuthorsPageProps) => {
                   {/* Below is the component for the EditAuthor Dialog */}
                   <EditAuthorDialog author={author} />
                   {/* Below is the component for the Delete Dialog (only works for authors currently) */}
-                  <DeleteButton deleteFunction={deleteAuthor} id={author.author_id} />
+                  <DeleteButton
+                    deleteFunction={deleteAuthor}
+                    id={author.author_id}
+                    type="Author"
+                  />
                 </TableCell>
               </TableRow>
             ))}

@@ -15,9 +15,10 @@ import { useToast } from "./ui/use-toast";
 type DeleteButtonProps = {
   id?: number | undefined;
   deleteFunction: (id: number) => Promise<any>;
+  type?: 'Member' | 'Author' | 'Book' | 'Loan'
 };
 
-export function DeleteButton({ id, deleteFunction }: DeleteButtonProps) {
+export function DeleteButton({ id, deleteFunction, type }: DeleteButtonProps) {
   const { toast } = useToast();
 
   const handleDelete = async () => {
@@ -32,7 +33,7 @@ export function DeleteButton({ id, deleteFunction }: DeleteButtonProps) {
       const response = await deleteFunction(id); // Use the deleteFunction prop here
       toast({
         variant: "destructive",
-        description: `Item id ${id} deleted! 😱`,
+        description: `${type} id ${id} deleted! 😱`,
       });
       console.log(response.message);
     } catch (error) {

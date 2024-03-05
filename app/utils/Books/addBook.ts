@@ -42,6 +42,7 @@ export const addBook = async (book: unknown) => {
   }
 
   const client = await db.connect();
+  
 
   // Destructures the input
   const title = result.data.title;
@@ -50,6 +51,22 @@ export const addBook = async (book: unknown) => {
   const book_type = result.data.book_type;
   const book_status = result.data.book_status;
   const changed_date = result.data.changed_date;
+
+  // Check if the book already exists
+  const { rows: existingBooks } = await client.sql`
+    SELECT * FROM Books WHERE title = ${title} AND isbn = ${isbn}
+  `;
+
+  if (existingBooks.length > 0) {
+    client.release();
+
+    return {
+      error: {
+        title: "A book with this title and ISBN already exists",
+        isbn: "A book with this title and ISBN already exists",
+      },
+    };
+  }
 
   // Inserts the book into the database
   const { rows } = await client.sql`
