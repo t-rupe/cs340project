@@ -8,7 +8,7 @@ export default function Macbook() {
       <MacbookScroll
         title={
           <span>
-            Just click any tab on the left to view a table. <br /> It's that simple.
+            Just click any tab on the left to view a table. <br /> It&apos;s that simple.
           </span>
         }
         badge={

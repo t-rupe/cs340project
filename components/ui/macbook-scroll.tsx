@@ -79,7 +79,7 @@ export const MacbookScroll = ({
       >
         {title || (
           <span>
-            Simply click any tab on the left to view a table. <br /> It's that simple.
+            Simply click any tab on the left to view a table. <br /> It&apos;s that simple.
           </span>
         )}
       </motion.h2>
