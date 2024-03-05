@@ -34,6 +34,7 @@ const schema = z.object({
 
 export default function AddAuthor() {
   const [open, setOpen] = React.useState(false);
+  
 
   // Client action to add a new author
   const clientAction = async (formData: FormData) => {
@@ -111,7 +112,7 @@ function SubmitButton() {
 
   // Displays a 'pending' button while the form is being submitted
   return (
-    <Button type="submit" aria-disabled={pending}>
+    <Button type="submit" disabled={pending} aria-disabled={pending}>
       {pending ? "Adding..." : "Add Author"}
     </Button>
   );

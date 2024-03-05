@@ -8,7 +8,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { AlertDialogDemo } from "@/components/AlertDestructive";
+import { DeleteButton } from "@/components/AlertDestructive";
 import { DialogDemo } from "@/components/LoansEdit";
 import AddDialog from "@/components/AddDialog";
 
@@ -101,7 +101,8 @@ const LoansPage = () => {
                     }))}
                   />
 
-                  <AlertDialogDemo />
+                  {/* @ts-ignore*/}
+                  <DeleteButton />
                 </TableCell>
               </TableRow>
             ))}

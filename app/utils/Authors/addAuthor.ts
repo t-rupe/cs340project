@@ -18,10 +18,7 @@ const schema = z.object({
     .max(255, { message: "Last name is too long" }),
 });
 
-
-
 export const addAuthor = async (author: unknown) => {
-
   // Validates the input and returns early if the input is invalid
   const result = schema.safeParse(author);
   if (!result.success) {
@@ -37,6 +34,23 @@ export const addAuthor = async (author: unknown) => {
   // Destructures the input
   const firstName = result.data.first_name;
   const lastName = result.data.last_name;
+
+  const { rows: existingAuthors } = await client.sql`
+  SELECT * FROM Authors WHERE first_name = ${firstName} AND last_name = ${lastName}
+`;
+
+  if (existingAuthors.length > 0) {
+    client.release();
+
+    return {
+      error: {
+        first_name:
+          "An author with this first name and last name already exists",
+        last_name:
+          "An author with this first name and last name already exists",
+      },
+    };
+  }
 
   // Inserts the author into the database
   const { rows } = await client.sql`

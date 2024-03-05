@@ -8,7 +8,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
-import { AlertDialogDemo } from "@/components/AlertDestructive"; 
+import { DeleteButton } from "@/components/AlertDestructive"; 
 import DialogDemo from "@/components/EditDialog";
 import AddDialog from "@/components/AddDialog";
 
@@ -139,7 +139,8 @@ const MembersPage = () => {
                         member[field.name]?.toString() || field.defaultValue,
                     }))}
                   />
-                  <AlertDialogDemo />
+                  {/* @ts-ignore*/}
+                  <DeleteButton />
                 </TableCell>
               </TableRow>
             ))}

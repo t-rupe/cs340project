@@ -9,7 +9,7 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { AlertDialogDemo } from "@/components/AlertDestructive";
+import { DeleteButton } from "@/components/AlertDestructive";
 import AddDialog from "@/components/AddDialog";
 
 const BookAuditPage = () => {
@@ -79,7 +79,8 @@ const BookAuditPage = () => {
                   <Button variant="outline" className="mr-2" size="sm">
                     Edit
                   </Button>
-                  <AlertDialogDemo />
+                  {/* @ts-ignore*/}
+                  <DeleteButton />
                 </TableCell>
               </TableRow>
             ))}
