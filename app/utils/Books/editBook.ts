@@ -62,6 +62,6 @@ export const editBook = async (book_id: number, book: unknown) => {
   client.release();
 
   // Refreshes the cache for the home page
-  revalidatePath("/");
+  revalidatePath("/books");
   return rows[0];
 };

@@ -19,7 +19,7 @@ export const deleteBook = async (book_id: number) => {
 
 
   // This refreshes the data upon executing a deletion.
-  revalidatePath('/')
+  revalidatePath('/books')
 
   return { message: `Book with id ${book_id} deleted successfully` };
 };

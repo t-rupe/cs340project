@@ -76,6 +76,6 @@ export const addBook = async (book: unknown) => {
   client.release();
 
   // Refreshes the cache for the /books page
-  revalidatePath("/");
+  revalidatePath("/books");
   return rows[0];
 };
