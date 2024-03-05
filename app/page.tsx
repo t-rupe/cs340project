@@ -1,10 +1,4 @@
-
-import { getBooks } from "@/app/utils/Books/getBooks";
-import BooksPage from "@/components/BooksPage";
-
+import HomeTitle from "../components/HomeTitle";
 export default async function Page() {
-  const data = await getBooks();
-  console.log(data);
-
-  return <BooksPage data={data} />;
+  return <HomeTitle />;
 }

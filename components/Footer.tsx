@@ -4,7 +4,7 @@
 export default async function Footer() {
   const gif = "/icons8-github.gif";
   return (
-    <footer className="bg-gray-50 sticky bottom-0 rounded-lg sm:flex sm:items-center sm:justify-center p-4 sm:p-6 xl:p-8 dark:bg-gray-800 antialiased">
+    <footer className="bg-gray-50 sticky bottom-0 sm:flex sm:items-center sm:justify-center p-4 sm:p-2 xl:p-4 dark:bg-gray-800 antialiased">
       <p className="mb-4 text-sm text-center text-gray-500 dark:text-gray-400 sm:mb-0">
         © 2024 NexaLibrium. A project by Taylor Rupe &  Caleb Kasprzyk. All rights reserved. Designed by{" "}
         <span className="underline text-black font-bold">Taylor Rupe</span>
