@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getMembers } from "@/app/utils/Members/getMembers";
 import MembersPage from "@/components/MembersPage";
 
