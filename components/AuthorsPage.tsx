@@ -45,6 +45,7 @@ const AuthorsPage = ({ data }: AuthorsPageProps) => {
                 <TableCell>{author.author_id}</TableCell>
                 <TableCell>{author.first_name}</TableCell>
                 <TableCell>{author.last_name}</TableCell>
+          
                 <TableCell className="flex justify-end">
                   {/* Below is the component for the EditAuthor Dialog */}
                   <EditAuthorDialog author={author} />

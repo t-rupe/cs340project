@@ -15,7 +15,8 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, { message: "Last name is required" })
-    .max(255, { message: "Last name is too long" }),
+    .max(255, { message: "Last name is too long" }),    
+
 });
 
 export const addAuthor = async (author: unknown) => {
@@ -31,9 +32,10 @@ export const addAuthor = async (author: unknown) => {
 
   const client = await db.connect();
 
-  // Destructures the input
+  // Destructures the input ** change this **
   const firstName = result.data.first_name;
   const lastName = result.data.last_name;
+ 
 
   const { rows: existingAuthors } = await client.sql`
   SELECT * FROM Authors WHERE first_name = ${firstName} AND last_name = ${lastName}

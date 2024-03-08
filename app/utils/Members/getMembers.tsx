@@ -25,5 +25,3 @@ export const getAuthors = async (): Promise<Author[]> => {
   // This returns the rows as an array of Author objects.
   return rows as Author[];
 };
-
-

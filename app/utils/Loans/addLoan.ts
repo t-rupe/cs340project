@@ -6,17 +6,13 @@ import { z } from "zod";
 // Zod schema for validating the input
 const schema = z.object({
   loan_id: z.number().optional(),
-  loan_status: z
-    .string()
-    .trim()
-    .min(1, { message: "Loan status is required" })
-    .max(255, { message: "Loan status is too long" }),
-  date_checked_out: z.date(),
-  date_due: z.date(),
-  date_returned: z.date(),
-  book_id: z.number(),
-  member_id: z.number(),
-  changed_date: z.date(),
+  loan_status: z.enum(["CheckedOut", "Returned"]).default("CheckedOut"),
+  date_checked_out: z.date().default(new Date()),
+  date_due: z.date().default(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)), // 2 weeks from now
+  date_returned: z.date().nullable().default(null),
+  book_id: z.number().min(1, { message: "Book is required" }),
+  member_id: z.number().optional(),
+  changed_date: z.date().default(new Date()),
 });
 
 export const addLoan = async (loan: unknown) => {
@@ -61,7 +57,7 @@ export const addLoan = async (loan: unknown) => {
   // Inserts the loan into the database
   const { rows } = await client.sql`
     INSERT INTO Loans (loan_status, date_checked_out, date_due, date_returned, book_id, member_id, changed_date) 
-    VALUES (${loan_status}, ${date_checked_out.toISOString()}, ${date_due.toISOString()}, ${date_returned.toISOString()}, ${book_id}, ${member_id}, ${changed_date.toISOString()}) 
+    VALUES (${loan_status}, ${date_checked_out.toISOString()}, ${date_due.toISOString()}, ${date_returned?.toISOString() ?? null}, ${book_id}, ${member_id}, ${changed_date.toISOString()}) 
   `;
   client.release();
 

@@ -18,7 +18,7 @@ const schema = z.object({
     member_id: z.number(),
     changed_date: z.date(),
   });
-export const editBook = async (loan_id: number, loan: unknown) => {
+export const editLoan = async (loan_id: number, loan: unknown) => {
   // Validates the input and returns early if the input is invalid
   const result = schema.safeParse(loan);
   if (!result.success) {

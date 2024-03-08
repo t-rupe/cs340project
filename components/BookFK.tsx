@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,25 +14,34 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-const authorBookRelations = [
-  { bookId: "1", bookTitle: "The Alchemist", authorName: "Paulo Coelho" },
-  { bookId: "2", bookTitle: "Les Misérables", authorName: "Victor Hugo" },
-  { bookId: "3", bookTitle: "To Kill a Mockingbird", authorName: "Harper Lee" },
-  { bookId: "4", bookTitle: "The Great Gatsby", authorName: "F. Scott Fitzgerald" },
-  { bookId: "5", bookTitle: "1984", authorName: "George Orwell" },
-  { bookId: "6", bookTitle: "Pride and Prejudice", authorName: "Jane Austen" },
-];
-
-export function BookFK({ defaultValue }: { defaultValue?: string }) {
+import { getBooks } from "@/app/utils/Books/getBooks";
+import { Book } from "@/app/utils/Books/getBooks";
+export function BookFK({
+  defaultValue,
+  selectedBookId,
+  setSelectedBookId,
+}: {
+  defaultValue?: string;
+  selectedBookId: string;
+  setSelectedBookId: (bookId: string) => void;
+}) {
   const [open, setOpen] = React.useState(false);
-  const [selectedBookId, setSelectedBookId] = React.useState("");
+  const [books, setBooks] = React.useState<Book[]>([]);
 
   React.useEffect(() => {
-    // Update selectedMemberId if defaultValue changes
-    setSelectedBookId(defaultValue || "");
-  }, [defaultValue]);
+    // Fetch books from the server using getBooks action
+    const fetchBooks = async () => {
+      const response = await getBooks();
+      setBooks(response);
+    };
 
+    fetchBooks();
+  }, []);
+
+  React.useEffect(() => {
+    // Update selectedBookId if defaultValue changes
+    setSelectedBookId(defaultValue || "");
+  }, [defaultValue, setSelectedBookId]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -42,35 +50,40 @@ export function BookFK({ defaultValue }: { defaultValue?: string }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] outline-red-700 justify-between"
+          className=" outline-red-700 justify-between"
         >
           {selectedBookId
-            ? authorBookRelations.find((book) => book.bookId === selectedBookId)?.bookTitle
+            ? books.find((book) => book.book_id === Number(selectedBookId))
+                ?.title
             : "Select book..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
+      <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput placeholder="Search book..." />
           <CommandEmpty>No book found.</CommandEmpty>
           <CommandGroup>
-            {authorBookRelations.map((book) => (
+            {books.map((book) => (
               <CommandItem
-                key={book.bookId}
-                value={book.bookId}
+                key={book.book_id}
+                value={book.book_id.toString()}
                 onSelect={(currentValue) => {
+                  console.log("Selected Book ID:", currentValue);
+
                   setSelectedBookId(currentValue === selectedBookId ? "" : currentValue);
                   setOpen(false);
                 }}
-              >
+                          >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    selectedBookId === book.bookId ? "opacity-100" : "opacity-0"
+                    selectedBookId === book.book_id.toString()
+                      ? "opacity-100"
+                      : "opacity-0"
                   )}
                 />
-                {`${book.bookTitle} | id: ${book.bookId}`}
+                {`${book.title} | id: ${book.book_id}`}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -79,4 +92,3 @@ export function BookFK({ defaultValue }: { defaultValue?: string }) {
     </Popover>
   );
 }
-
