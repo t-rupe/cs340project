@@ -14,8 +14,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getBooks } from "@/app/utils/Books/getBooks";
+import { getAvailableBooks } from "@/app/utils/Loans/getAvailableBooks";
 import { Book } from "@/app/utils/Books/getBooks";
+
 export function BookFK({
   defaultValue,
   selectedBookId,
@@ -29,9 +30,10 @@ export function BookFK({
   const [books, setBooks] = React.useState<Book[]>([]);
 
   React.useEffect(() => {
-    // Fetch books from the server using getBooks action
+    // Fetch books from the server using getBooks action constantly
     const fetchBooks = async () => {
-      const response = await getBooks();
+      const response = await getAvailableBooks();
+
       setBooks(response);
     };
 
@@ -50,9 +52,13 @@ export function BookFK({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className=" outline-red-700 justify-between"
+          className="outline-red-700 justify-between"
+          disabled={books.length === 0}
+
         >
-          {selectedBookId
+          {books.length === 0
+            ? "No Books Available"
+            : selectedBookId
             ? books.find((book) => book.book_id === Number(selectedBookId))
                 ?.title
             : "Select book..."}
@@ -69,12 +75,12 @@ export function BookFK({
                 key={book.book_id}
                 value={book.book_id.toString()}
                 onSelect={(currentValue) => {
-                  console.log("Selected Book ID:", currentValue);
-
-                  setSelectedBookId(currentValue === selectedBookId ? "" : currentValue);
+                  setSelectedBookId(
+                    currentValue === selectedBookId ? "" : currentValue
+                  );
                   setOpen(false);
                 }}
-                          >
+              >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",

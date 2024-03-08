@@ -8,11 +8,8 @@ import {
   Table,
 } from "@/components/ui/table";
 import { DeleteButton } from "@/components/AlertDestructive";
-import AddAuthor from "./AddAuthor";
-import EditAuthorDialog from "./editAuthorDialog";
-import { deleteAuthor } from "@/app/utils/Authors/deleteAuthor";
 import AddLoan from "./LoansUI/AddLoan";
-import EditLoanDialog from "./LoansUI/EditLoanDialog";
+import { deleteLoan } from "@/app/utils/Loans/deleteLoan";
 
 type Loan = {
   loan_id: number;
@@ -42,11 +39,12 @@ const LoansPage = ({ data }: LoanPageProps) => {
             <TableRow>
               <TableHead>Loan ID</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Book ID</TableHead>
+              <TableHead>Member ID</TableHead>
               <TableHead>Checked Out</TableHead>
               <TableHead>Due Date</TableHead>
               <TableHead>Returned Date</TableHead>
-              <TableHead>Book ID</TableHead>
-              <TableHead>Member ID</TableHead>
+
               <TableHead>Changed Date</TableHead>
 
               <TableHead className="text-right">Actions</TableHead>
@@ -57,6 +55,8 @@ const LoansPage = ({ data }: LoanPageProps) => {
               <TableRow key={index}>
                 <TableCell>{loan.loan_id}</TableCell>
                 <TableCell>{loan.loan_status}</TableCell>
+                <TableCell>{loan.book_id}</TableCell>
+                <TableCell>{loan.member_id}</TableCell>
                 <TableCell>
                   {loan.date_checked_out.toISOString().split("T")[0]}
                 </TableCell>
@@ -64,17 +64,19 @@ const LoansPage = ({ data }: LoanPageProps) => {
                   {loan.date_due.toISOString().split("T")[0]}
                 </TableCell>
                 <TableCell>
-                  {loan.date_returned?.toISOString().split("T")[0] ?? "N/A"} 
+                  {loan.date_returned?.toISOString().split("T")[0] ?? "N/A"}
                 </TableCell>
-                <TableCell>{loan.book_id}</TableCell>
-                <TableCell>{loan.member_id}</TableCell>
+
                 <TableCell>
                   {loan.changed_date.toISOString().split("T")[0]}
                 </TableCell>
 
                 <TableCell className="flex justify-end">
-                  {/* Below is the component for the EditLoan Dialog */}
-                    <EditLoanDialog loan={loan} />
+                  <DeleteButton
+                    deleteFunction={deleteLoan}
+                    id={loan.loan_id}
+                    type="Loan"
+                  />
                 </TableCell>
               </TableRow>
             ))}

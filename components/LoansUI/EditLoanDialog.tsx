@@ -20,7 +20,6 @@ import { toast } from ".././ui/use-toast";
 import { MemberFK } from "@/components/MemberFK";
 import { ComboBoxResponsive } from "../StatusChange";
 
-
 interface Field {
   name: string;
   label: string;
@@ -31,6 +30,8 @@ interface Field {
 interface DynamicFormProps {
   fields: Field[];
   className?: string;
+  selectedStatus: string;
+  setSelectedStatus: (status: string) => void;
 }
 
 type Loan = {
@@ -50,10 +51,11 @@ interface EditLoanDialogProps {
 
 const schema = z.object({
   loan_id: z.number().optional(),
-  loan_status: z.enum(["CheckedOut", "Returned"]),
+  loan_status: z.enum(["checked-out", "returned"]),
+
   date_checked_out: z.date(),
   date_due: z.date(),
-  date_returned: z.date().nullable(),
+  date_returned: z.date(),
   book_id: z.number(),
   member_id: z.number().nullable(),
   changed_date: z.date(),
@@ -64,6 +66,7 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
   const [selectedMemberId, setSelectedMemberId] = React.useState(
     loan.member_id?.toString() || ""
   );
+  const [selectedStatus, setSelectedStatus] = React.useState(loan.loan_status);
 
   const fields = [
     {
@@ -82,6 +85,12 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
       name: "book_id",
       label: "Book ID",
       defaultValue: loan.book_id.toString(),
+      type: "number",
+    },
+    {
+      name: "member_id",
+      label: "Member ID",
+      defaultValue: loan.member_id?.toString() || "",
       type: "number",
     },
     {
@@ -111,15 +120,10 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
     // Destructures the input from the 'Edit Loan' form & the id from the loan prop
     const newLoan = {
       loan_id: loan.loan_id,
-      loan_status: formData.get("loan_status") as string,
+      loan_status: "returned",
       date_checked_out: new Date(formData.get("date_checked_out") as string),
       date_due: new Date(formData.get("date_due") as string),
-      date_returned:
-        formData.get("loan_status") === "Returned"
-          ? new Date()
-          : formData.get("date_returned")
-          ? new Date(formData.get("date_returned") as string)
-          : null,
+      date_returned: selectedStatus === "returned" ? new Date() : null,
       book_id: loan.book_id,
       member_id: Number(selectedMemberId) || null,
       changed_date: new Date(),
@@ -184,7 +188,11 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <form action={clientAction} className={cn("grid items-start gap-4")}>
-          <DynamicForm fields={fields} />
+          <DynamicForm
+            fields={fields}
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
+          />
           {!loan.member_id && (
             <div className="grid gap-2">
               <Label htmlFor="member_id">Member (Optional)</Label>
@@ -202,37 +210,47 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
   );
 }
 
-function DynamicForm({ fields, className }: DynamicFormProps) {
-    // Renders a dynamic edit form based on the fields prop, defined at the top of the file
-    return (
-      <div className={cn("grid items-start gap-4", className)}>
-        {fields.map((field, index) => (
-          <div key={index} className="grid gap-2">
-            <Label htmlFor={field.name}>{field.label}</Label>
-  
-            {field.name === "loan_status" ? (
-              <ComboBoxResponsive />
-            ) : (
-              <Input
-                type={field.type}
-                id={field.name}
-                name={field.name}
-                defaultValue={field.defaultValue}
-                disabled={
-                  field.name === "loan_id" ||
-                  field.name === "book_id" ||
-                  field.name === "date_checked_out" ||
-                  field.name === "date_due" ||
-                  field.name === "date_returned"
-                }
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  
+function DynamicForm({
+  fields,
+  className,
+  selectedStatus,
+  setSelectedStatus,
+}: DynamicFormProps) {
+  return (
+    <div className={cn("grid items-start gap-4", className)}>
+      {fields.map((field, index) => (
+        <div key={index} className="grid gap-2">
+          <Label htmlFor={field.name}>{field.label}</Label>
+
+          <input type="hidden" name="loan_status" value={selectedStatus} />
+
+          {field.name === "loan_status" ? (
+            <ComboBoxResponsive
+              defaultValue={field.defaultValue}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+            />
+          ) : (
+            <Input
+              type={field.type}
+              id={field.name}
+              name={field.name}
+              defaultValue={field.defaultValue}
+              disabled={
+                field.name === "loan_id" ||
+                field.name === "book_id" ||
+                field.name === "date_checked_out" ||
+                field.name === "date_due" ||
+                field.name === "date_returned"
+              }
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function SubmitButton() {
   // Displays a 'pending' button while the form is being submitted
   const { pending } = useFormStatus();

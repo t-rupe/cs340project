@@ -24,10 +24,9 @@ const authors = [
   { author_id: "5", author_first_name: "F. Scott", author_last_name: "Fitzgerald" },
   { author_id: "6", author_first_name: "George", author_last_name: "Orwell" },
   { author_id: "7", author_first_name: "Jane", author_last_name: "Austen" },
-  // Add more author objects here
 ];
 
-export function AuthorFK({ defaultValue }: { defaultValue?: string }) {
+export function AuthorFK({ defaultValue }: { defaultValue?: string, onChange?: (value: string) => void}) {
   const [open, setOpen] = React.useState(false);
   const [selectedAuthorId, setSelectedAuthorId] = React.useState("");
 

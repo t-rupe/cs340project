@@ -16,7 +16,8 @@ import { useFormStatus } from "react-dom";
 import { toast, useToast } from "./ui/use-toast";
 import { z } from "zod";
 import { addBook } from "@/app/utils/Books/addBook";
-
+import { addBookAudit } from "@/app/utils/BookAudits/addBookAudit";
+import { getBookId } from "@/app/utils/BookAudits/getBookId";
 // Zod schema for validating the input
 const schema = z.object({
   book_id: z.number().optional(),
@@ -40,8 +41,8 @@ const schema = z.object({
     .trim()
     .min(1, { message: "Book type is required" })
     .max(255, { message: "Book type is too long" }),
-    book_status: z.string().optional(),
-    changed_date: z.date().optional(),
+  book_status: z.string().optional(),
+  changed_date: z.date().optional(),
 });
 
 export default function AddBook() {
@@ -62,11 +63,11 @@ export default function AddBook() {
 
     // Validates the input and returns early if the input is invalid.
     const result = schema.safeParse(book);
-    console.log('check result', result)
+    console.log("check result", result);
     if (!result.success) {
       // Destructures the error message
       const message = result.error.flatten().fieldErrors;
-      console.log('bad message', message)
+      console.log("bad message", message);
 
       // Displays a toast message if the input is invalid
       toast({
@@ -83,7 +84,6 @@ export default function AddBook() {
 
     // Sends a request to add a new book to the server action 'addBook'
     const response = await addBook(result.data);
-    console.log('check response', response)
 
     // if the response contains an error, display a toast message
     if (response?.error) {
@@ -96,6 +96,19 @@ export default function AddBook() {
           response.error.book_type,
       });
     }
+
+    console.log("response", result.data);
+
+    const bookID = await getBookId(result.data.title)
+    const bookAudit = {
+      book_id: bookID,
+      book_status: "Available",
+      changed_date: new Date(),
+    };
+
+    // Send a request to create a new book_audit record
+    const auditResponse = await addBookAudit(bookAudit);
+    
 
     // If the response is successful, close the dialog and display a 'successful' toast message
     setOpen(false);

@@ -17,7 +17,8 @@ import { toast } from ".././ui/use-toast";
 import { set, z } from "zod";
 import { BookFK } from "@/components/BookFK";
 import { MemberFK } from "@/components/MemberFK";
-
+import { getLoans } from "@/app/utils/Loans/getLoans";
+import { updateBookStatus } from "@/app/utils/Loans/updateBookStatus";
 // Zod schema for validating the input
 const schema = z.object({
   loan_id: z.number().optional(),
@@ -61,6 +62,23 @@ export default function AddLoan() {
       return;
     }
 
+    const existingLoan = await getLoans();
+
+    // Check if the book is already checked out
+
+    const checkedOutBook = existingLoan.find(
+      (loan) =>
+        loan.book_id === result.data.book_id &&
+        loan.loan_status === "CheckedOut"
+    );
+
+    if (checkedOutBook) {
+      return toast({
+        variant: "destructive",
+        description: "Book is already checked out",
+      });
+    }
+
     // Sends a request to add a new loan to the server action 'addLoan'
     const response = await addLoan(result.data);
     console.log("Server Response:", response);
@@ -75,6 +93,7 @@ export default function AddLoan() {
 
     // If the response is successful, close the dialog and display a 'successful' toast message
     setOpen(false);
+    const updateBook = await updateBookStatus(result.data.book_id);
     toast({
       description: "Loan added! 🥳",
     });
@@ -105,6 +124,8 @@ export default function AddLoan() {
             />
           </div>
           <div className="grid gap-2">
+            <input type="hidden" name="member_id" value={selectedMemberId} />
+
             <Label htmlFor="member_id">Member (Optional)</Label>
             <MemberFK
               defaultValue=""
@@ -128,3 +149,4 @@ function SubmitButton() {
     </Button>
   );
 }
+

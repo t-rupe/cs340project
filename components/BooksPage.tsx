@@ -10,7 +10,6 @@ import {
 import { DeleteButton } from "@/components/AlertDestructive";
 import AddBook from "./AddBook";
 import { deleteBook } from "@/app/utils/Books/deleteBook";
-import { Edit } from "lucide-react";
 import EditBookDialog from "./editBookDialog";
 
 type Book = {
