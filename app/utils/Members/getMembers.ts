@@ -1,5 +1,6 @@
 "use server";
 import { db } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 
 // This is the type interface we have to use to define the shape of the data we are fetching from the database. Essentially this says, the each record has these fields.
 export interface Member {
@@ -28,6 +29,7 @@ export const getMembers = async (): Promise<Member[]> => {
   // This releases the connection back to the pool so that other requests can use it.
   client.release();
 
+  revalidatePath("/members")
   // This returns the rows as an array of member objects.
   return rows as Member[];
 };
