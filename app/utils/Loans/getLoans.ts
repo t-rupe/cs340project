@@ -26,6 +26,6 @@ export const getLoans = async (): Promise<Loan[]> => {
   client.release();
 
   // This returns the rows as an array of loan objects.
-  revalidatePath("loans")
+  revalidatePath("/loans")
   return rows as Loan[];
 };
