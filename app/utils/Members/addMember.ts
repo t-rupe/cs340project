@@ -37,12 +37,12 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, { message: "State is required" })
-    .max(255, { message: "State is too long" }),
+    .max(255, { message: "Please enter two characters for state" }),
   country: z
     .string()
     .trim()
     .min(1, { message: "Country is required" })
-    .max(255, { message: "Country is too long" }),
+    .max(255, { message: "Please enter two characters for country" }),
   zip_code: z
     .string()
     .trim()

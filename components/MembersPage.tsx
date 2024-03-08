@@ -55,7 +55,7 @@ const MembersPage = ({ data }: MemberPageProps) => {
               <TableHead>State</TableHead>
               <TableHead>Country</TableHead>
               <TableHead>Zip Code</TableHead>
-              <TableHead>Created Code</TableHead>
+              <TableHead>Created Date</TableHead>
               <TableHead>Changed Date</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>

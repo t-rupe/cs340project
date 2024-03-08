@@ -51,12 +51,12 @@ const schema = z.object({
       .string()
       .trim()
       .min(1, { message: "State is required" })
-      .max(255, { message: "State is too long" }),
+      .max(2, { message: "Please enter two characters for state" }),
     country: z
       .string()
       .trim()
       .min(1, { message: "Country is required" })
-      .max(255, { message: "Country is too long" }),
+      .max(2, { message: "Please enter two characters for country" }),
     zip_code: z
       .string()
       .trim()
@@ -210,7 +210,7 @@ function SubmitButton() {
   // Displays a 'pending' button while the form is being submitted
   return (
     <Button type="submit" aria-disabled={pending}>
-      {pending ? "Adding..." : "Add Book"}
+      {pending ? "Adding..." : "Add Member"}
     </Button>
   );
 }

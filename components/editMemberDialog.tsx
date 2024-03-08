@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormStatus } from "react-dom";
-import { z } from "zod";
+import { nullable, z } from "zod";
 import { toast, useToast } from "./ui/use-toast";
 import { editMember } from "@/app/utils/Members/editMember";
 
@@ -45,7 +45,7 @@ type Member = {
     created_date: Date; 
     changed_date: Date; 
 };
-};
+
 
 interface EditMemberDialogProps {
   member: Member;
@@ -84,12 +84,12 @@ const schema = z.object({
       .string()
       .trim()
       .min(1, { message: "State is required" })
-      .max(255, { message: "State is too long" }),
+      .max(2, { message: "Please enter two characters for state." }),
     country: z
       .string()
       .trim()
       .min(1, { message: "Country is required" })
-      .max(255, { message: "Country is too long" }),
+      .max(2, { message: "Please enter two characters for country" }),
     zip_code: z
       .string()
       .trim()
@@ -123,52 +123,88 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
         type: "text",
       },
     {
-      name: "isbn",
-      label: "ISBN",
-      defaultValue: book.isbn,
+        name: "phone_1",
+        label: "Phone 1",
+        defaultValue: member.phone_1,
+        type: "text",
+      },
+    {
+        name: "phone_2",
+        label: "Phone 2",
+        defaultValue: member.phone_2,
+        type: "text",
+      },
+    {
+      name: "street_1",
+      label: "Street 1",
+      defaultValue: member.street_1,
       type: "text",
     },
     {
-      name: "book_category",
-      label: "Category",
-      defaultValue: book.book_category,
-      type: "text",
+        name: "street_2",
+        label: "Street 2",
+        defaultValue: member.street_2,
+        type: "text",
     },
     {
-      name: "book_type",
-      label: "Type",
-      defaultValue: book.book_type,
-      type: "text",
+        name: "city",
+        label: "City",
+        defaultValue: member.city,
+        type: "text",
     },
     {
-      name: "book_status",
-      label: "Status",
-      defaultValue: book.book_status,
-      type: "text",
+        name: "state",
+        label: "State",
+        defaultValue: member.state,
+        type: "text",
     },
+    {
+        name: "country",
+        label: "Country",
+        defaultValue: member.country,
+        type: "text",
+      },
+    {
+        name: "zip_code",
+        label: "Zip Code",
+        defaultValue: member.zip_code,
+        type: "text",
+    },
+    {
+        name: "created_date",
+        label: "Created Date",
+        defaultValue: member.created_date.toString(),
+        type: "date",
+      },
     {
       name: "changed_date",
-      label: "Date",
+      label: "Changed Date",
       defaultValue: currentTime,
       type: "date",
     },
   ];
 
-  // Client action to edit an book
+  // Client action to edit an member
   const clientAction = async (formData: FormData) => {
-    // Desctructures the input from the 'Edit Book' form & the id from the book prop
-    const newBook = {
-      book_id: book.book_id,
-      title: formData.get("title"),
-      isbn: formData.get("isbn"),
-      book_category: formData.get("book_category"),
-      book_type: formData.get("book_type"),
-      book_status: book.book_status,
+    // Desctructures the input from the 'Edit Member' form & the id from the member prop
+    const newMember = {
+      member_id: member.member_id,
+      member_first_name: formData.get("member_first_name"),
+      member_last_name: formData.get("member_last_name"),
+      phone_1: formData.get("phone_1"),
+      phone_2: formData.get("phone_2"),
+      street_1: formData.get("street_1"),
+      street_2: formData.get("street_2"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      country: formData.get("country"),
+      zip_code: formData.get("zip_code"),
+      created_date: member.created_date,
       changed_date: new Date(),
     };
 
     // Validates the input and returns early if the input is invalid
-    const result = schema.safeParse(newBook);
+    const result = schema.safeParse(newMember);
     if (!result.success) {
       const message = result.error.flatten().fieldErrors;
 
@@ -177,38 +213,46 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       toast({
         variant: "destructive",
         description:
-          message.title ||
-          message.isbn ||
-          message.book_category ||
-          message.book_type ||
-          message.book_status ||
-          message.changed_date,
+          message.member_first_name ||
+          message.member_last_name ||
+          message.phone_1 ||
+          message.phone_2 ||
+          message.street_1 ||
+          message.street_2 ||
+          message.city ||
+          message.state ||
+          message.country ||
+          message.zip_code,
       });
 
       return;
     }
 
-    // If client side validation passes, send a request to edit the book to the server action 'editBook'
-    const response = await editBook(newBook.book_id, result.data);
+    // If client side validation passes, send a request to edit the member to the server action 'editMember'
+    const response = await editMember(newMember.member_id, result.data);
 
     // If the response contains an error, display a toast with the error message
     if (response?.error) {
       toast({
         variant: "destructive",
         description:
-          response.error.title ||
-          response.error.isbn ||
-          response.error.book_category ||
-          response.error.book_type ||
-          response.error.book_status ||
-          response.error.changed_date,
+        response.error.member_first_name ||
+        response.error.member_last_name ||
+        response.error.phone_1 ||
+        response.error.phone_2 ||
+        response.error.street_1 ||
+        response.error.street_2 ||
+        response.error.city ||
+        response.error.state ||
+        response.error.country ||
+        response.error.zip_code,
       });
     }
 
     // If the response is successful, close the dialog and display a 'successful' toast message
     setOpen(false);
     toast({
-      description: "Book updated! 🥳",
+      description: "Member updated! 🥳",
     });
   };
 
@@ -221,9 +265,9 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Book</DialogTitle>
+          <DialogTitle>Edit Member</DialogTitle>
           <DialogDescription>
-            Make changes to the selected book. Submit to save changes.
+            Make changes to the selected member. Submit to save changes.
           </DialogDescription>
         </DialogHeader>
         <form action={clientAction} className={cn("grid items-start gap-4")}>
@@ -243,16 +287,16 @@ function DynamicForm({ fields, className }: DynamicFormProps) {
         <div key={index} className="grid gap-2">
           <Label htmlFor={field.name}>{field.label}</Label>
 
-          {/* Displays the book_id field for UI/UX but disables it, preventing users from manually editing book_id */}
+          {/* Displays the member_id field for UI/UX but disables it, preventing users from manually editing member_id */}
           <Input
             type={field.type}
             id={field.name}
             name={field.name}
-            defaultValue={field.defaultValue.toString()}
+            defaultValue={field.defaultValue}
             disabled={
-              field.name === "book_id" ||
+              field.name === "member_id" ||
               field.name === "changed_date" ||
-              field.name === "book_status"
+              field.name === "created_date"
             }
           />
         </div>
@@ -266,9 +310,9 @@ function SubmitButton() {
 
   return (
     <Button type="submit" aria-disabled={pending}>
-      {pending ? "Updating..." : "Update Book"}
+      {pending ? "Updating..." : "Update Member"}
     </Button>
   );
 }
 
-export { EditBookDialog };
+export { EditMemberDialog };
