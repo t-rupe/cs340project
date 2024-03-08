@@ -1,22 +1,21 @@
-'use server';
+"use server";
 import { db } from "@vercel/postgres";
 
 // This is the type interface we have to use to define the shape of the data we are fetching from the database. Essentially this says, the each record has these fields.
 export interface Member {
-  member_id: number; 
-  member_first_name: string; 
-  member_last_name: string; 
-  phone_1: string; 
-  phone_2: string; 
-  street_1: string; 
-  street_2: string; 
-  city: string; 
-  state: string; 
-  country: string; 
-  zip_code: string; 
-  created_date: Date; 
-  changed_date: Date; 
-
+  member_id: number;
+  member_first_name: string;
+  member_last_name: string;
+  phone_1: string;
+  phone_2: string;
+  street_1: string;
+  street_2: string;
+  city: string;
+  state: string;
+  country: string;
+  zip_code: string;
+  created_date: Date;
+  changed_date: Date;
 }
 
 export const getMembers = async (): Promise<Member[]> => {

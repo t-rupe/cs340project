@@ -16,55 +16,56 @@ import { useFormStatus } from "react-dom";
 import { toast, useToast } from "./ui/use-toast";
 import { z } from "zod";
 import { addMember } from "@/app/utils/Members/addMember";
+import { getMembers } from "@/app/utils/Members/getMembers";
 
 // Zod schema for validating the input
 const schema = z.object({
-    member_id: z.number().optional(),
-    member_first_name: z
-      .string()
-      .trim()
-      .min(1, { message: "First name is required" })
-      .max(255, { message: "First name is too long" }),
-    member_last_name: z
-      .string()
-      .trim()
-      .min(1, { message: "Last name is required" })
-      .max(255, { message: "Last name is too long" }),
-    phone_1: z
-      .string()
-      .trim()
-      .min(1, { message: "Phone 1 is required" })
-      .max(255, { message: "Phone 1 is too long" }),
-    phone_2: z.string().optional(),
-    street_1: z
-      .string()
-      .trim()
-      .min(1, { message: "Street 1 is required" })
-      .max(255, { message: "Street 1 is too long" }),
-    street_2: z.string().optional(),
-    city: z
-      .string()
-      .trim()
-      .min(1, { message: "City is required" })
-      .max(255, { message: "City is too long" }),
-    state: z
-      .string()
-      .trim()
-      .min(1, { message: "State is required" })
-      .max(2, { message: "Please enter two characters for state" }),
-    country: z
-      .string()
-      .trim()
-      .min(1, { message: "Country is required" })
-      .max(2, { message: "Please enter two characters for country" }),
-    zip_code: z
-      .string()
-      .trim()
-      .min(1, { message: "Zip code is required" })
-      .max(255, { message: "Zip code is too long" }),
-    created_date: z.date(),
-    changed_date: z.date(),
-  });
+  member_id: z.number().optional(),
+  member_first_name: z
+    .string()
+    .trim()
+    .min(1, { message: "First name is required" })
+    .max(255, { message: "First name is too long" }),
+  member_last_name: z
+    .string()
+    .trim()
+    .min(1, { message: "Last name is required" })
+    .max(255, { message: "Last name is too long" }),
+  phone_1: z
+    .string()
+    .trim()
+    .min(1, { message: "Phone 1 is required" })
+    .max(255, { message: "Phone 1 is too long" }),
+  phone_2: z.string().optional(),
+  street_1: z
+    .string()
+    .trim()
+    .min(1, { message: "Street 1 is required" })
+    .max(255, { message: "Street 1 is too long" }),
+  street_2: z.string().optional(),
+  city: z
+    .string()
+    .trim()
+    .min(1, { message: "City is required" })
+    .max(255, { message: "City is too long" }),
+  state: z
+    .string()
+    .trim()
+    .min(1, { message: "State is required" })
+    .max(2, { message: "Please enter two characters for state" }),
+  country: z
+    .string()
+    .trim()
+    .min(1, { message: "Country is required" })
+    .max(2, { message: "Please enter two characters for country" }),
+  zip_code: z
+    .string()
+    .trim()
+    .min(1, { message: "Zip code is required" })
+    .max(255, { message: "Zip code is too long" }),
+  created_date: z.date(),
+  changed_date: z.date(),
+});
 
 export default function AddMember() {
   const [open, setOpen] = React.useState(false);
@@ -89,11 +90,11 @@ export default function AddMember() {
 
     // Validates the input and returns early if the input is invalid.
     const result = schema.safeParse(member);
-    console.log('check result', result)
+    console.log("check result", result);
     if (!result.success) {
       // Destructures the error message
       const message = result.error.flatten().fieldErrors;
-      console.log('bad message', message)
+      console.log("bad message", message);
 
       // Displays a toast message if the input is invalid
       toast({
@@ -114,25 +115,43 @@ export default function AddMember() {
       return;
     }
 
+    // Check for existing members with the same first and last name
+    const existingMembers = await getMembers();
+
+    const existingMember = existingMembers.find(
+      (member) =>
+        member.member_first_name === formData.get("member_first_name") &&
+        member.member_last_name === formData.get("member_last_name")
+    );
+
+    if (existingMember) {
+      toast({
+        variant: "destructive",
+        description:
+          "A member with the same first and last name already exists.",
+      });
+      return;
+    }
+
     // Sends a request to add a new member to the server action 'addMember'
     const response = await addMember(result.data);
-    console.log('check response', response)
+    console.log("check response", response);
 
     // if the response contains an error, display a toast message
     if (response?.error) {
       toast({
         variant: "destructive",
         description:
-        response.error.member_first_name ||
-        response.error.member_last_name ||
-        response.error.phone_1 ||
-        response.error.phone_2 ||
-        response.error.street_1 ||
-        response.error.street_2 ||
-        response.error.city ||
-        response.error.state ||
-        response.error.country ||
-        response.error.zip_code,
+          response.error.member_first_name ||
+          response.error.member_last_name ||
+          response.error.phone_1 ||
+          response.error.phone_2 ||
+          response.error.street_1 ||
+          response.error.street_2 ||
+          response.error.city ||
+          response.error.state ||
+          response.error.country ||
+          response.error.zip_code,
       });
     }
 

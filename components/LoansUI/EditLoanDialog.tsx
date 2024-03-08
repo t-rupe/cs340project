@@ -18,6 +18,8 @@ import { useFormStatus } from "react-dom";
 import { z } from "zod";
 import { toast } from ".././ui/use-toast";
 import { MemberFK } from "@/components/MemberFK";
+import { ComboBoxResponsive } from "../StatusChange";
+
 
 interface Field {
   name: string;
@@ -201,33 +203,36 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
 }
 
 function DynamicForm({ fields, className }: DynamicFormProps) {
-  // Renders a dynamic edit form based on the fields prop, defined at the top of the file
-  return (
-    <div className={cn("grid items-start gap-4", className)}>
-      {fields.map((field, index) => (
-        <div key={index} className="grid gap-2">
-          <Label htmlFor={field.name}>{field.label}</Label>
-
-          {/* Displays the loan_id and book_id fields for UI/UX but disables them, preventing users from manually editing */}
-          <Input
-            type={field.type}
-            id={field.name}
-            name={field.name}
-            defaultValue={field.defaultValue}
-            disabled={
-              field.name === "loan_id" ||
-              field.name === "book_id" ||
-              field.name === "date_checked_out" ||
-              field.name === "date_due" ||
-              field.name === "date_returned"
-            }
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
-
+    // Renders a dynamic edit form based on the fields prop, defined at the top of the file
+    return (
+      <div className={cn("grid items-start gap-4", className)}>
+        {fields.map((field, index) => (
+          <div key={index} className="grid gap-2">
+            <Label htmlFor={field.name}>{field.label}</Label>
+  
+            {field.name === "loan_status" ? (
+              <ComboBoxResponsive />
+            ) : (
+              <Input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                defaultValue={field.defaultValue}
+                disabled={
+                  field.name === "loan_id" ||
+                  field.name === "book_id" ||
+                  field.name === "date_checked_out" ||
+                  field.name === "date_due" ||
+                  field.name === "date_returned"
+                }
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+  
 function SubmitButton() {
   // Displays a 'pending' button while the form is being submitted
   const { pending } = useFormStatus();
