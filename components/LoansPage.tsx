@@ -10,6 +10,7 @@ import {
 import { DeleteButton } from "@/components/AlertDestructive";
 import AddLoan from "./LoansUI/AddLoan";
 import { deleteLoan } from "@/app/utils/Loans/deleteLoan";
+import EditLoanDialog from "./LoansUI/EditLoanDialog";
 
 type Loan = {
   loan_id: number;
@@ -72,6 +73,7 @@ const LoansPage = ({ data }: LoanPageProps) => {
                 </TableCell>
 
                 <TableCell className="flex justify-end">
+                  <EditLoanDialog loan={loan} />
                   <DeleteButton
                     deleteFunction={deleteLoan}
                     id={loan.loan_id}

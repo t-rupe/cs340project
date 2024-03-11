@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +17,16 @@ import { useFormStatus } from "react-dom";
 import { z } from "zod";
 import { toast } from ".././ui/use-toast";
 import { MemberFK } from "@/components/MemberFK";
-import { ComboBoxResponsive } from "../StatusChange";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import DatePicker from "./DatePicker";
 
 interface Field {
   name: string;
@@ -32,6 +40,10 @@ interface DynamicFormProps {
   className?: string;
   selectedStatus: string;
   setSelectedStatus: (status: string) => void;
+  selectedDate: Date | undefined;
+  setSelectedDate: (date: Date | undefined) => void;
+  selectedMemberId: string;
+  setSelectedMemberId: (memberId: string) => void;
 }
 
 type Loan = {
@@ -51,11 +63,10 @@ interface EditLoanDialogProps {
 
 const schema = z.object({
   loan_id: z.number().optional(),
-  loan_status: z.enum(["checked-out", "returned"]),
-
+  loan_status: z.enum(["Checked-Out", "Returned", "Overdue"]),
   date_checked_out: z.date(),
   date_due: z.date(),
-  date_returned: z.date(),
+  date_returned: z.date().nullable(),
   book_id: z.number(),
   member_id: z.number().nullable(),
   changed_date: z.date(),
@@ -67,6 +78,18 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
     loan.member_id?.toString() || ""
   );
   const [selectedStatus, setSelectedStatus] = React.useState(loan.loan_status);
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
+    undefined
+  );
+
+  const setSelectedDateWithStatusCheck = (date: Date | undefined) => {
+    console.log(selectedDate);
+    console.log(selectedStatus);
+    setSelectedDate(date);
+    if (date && loan.date_checked_out > date) {
+      setSelectedStatus("Overdue");
+    }
+  };
 
   const fields = [
     {
@@ -76,12 +99,6 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
       type: "number",
     },
     {
-      name: "loan_status",
-      label: "Status",
-      defaultValue: loan.loan_status,
-      type: "text",
-    },
-    {
       name: "book_id",
       label: "Book ID",
       defaultValue: loan.book_id.toString(),
@@ -89,15 +106,15 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
     },
     {
       name: "member_id",
-      label: "Member ID",
+      label: "Member (Optional)",
       defaultValue: loan.member_id?.toString() || "",
-      type: "number",
+      type: "select",
     },
     {
-      name: "date_checked_out",
-      label: "Date Checked Out",
-      defaultValue: loan.date_checked_out.toISOString().split("T")[0],
-      type: "date",
+      name: "loan_status",
+      label: "Status",
+      defaultValue: loan.loan_status,
+      type: "text",
     },
     {
       name: "date_due",
@@ -105,6 +122,13 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
       defaultValue: loan.date_due.toISOString().split("T")[0],
       type: "date",
     },
+    {
+      name: "date_checked_out",
+      label: "Date Checked Out",
+      defaultValue: loan.date_checked_out.toISOString().split("T")[0],
+      type: "date",
+    },
+
     {
       name: "date_returned",
       label: "Date Returned",
@@ -120,10 +144,10 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
     // Destructures the input from the 'Edit Loan' form & the id from the loan prop
     const newLoan = {
       loan_id: loan.loan_id,
-      loan_status: "returned",
-      date_checked_out: new Date(formData.get("date_checked_out") as string),
-      date_due: new Date(formData.get("date_due") as string),
-      date_returned: selectedStatus === "returned" ? new Date() : null,
+      loan_status: selectedStatus,
+      date_checked_out: loan.date_checked_out,
+      date_due: selectedDate ? new Date(selectedDate) : loan.date_due,
+      date_returned: selectedStatus === "Returned" ? new Date() : null,
       book_id: loan.book_id,
       member_id: Number(selectedMemberId) || null,
       changed_date: new Date(),
@@ -151,6 +175,7 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
 
     // If client side validation passes, send a request to edit the loan to the server action 'editLoan'
     const response = await editLoan(newLoan.loan_id, result.data);
+    console.log(response);
 
     // If the response contains an error, display a toast with the error message
     if (response?.error) {
@@ -192,17 +217,12 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
             fields={fields}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDateWithStatusCheck}
+            selectedMemberId={selectedMemberId}
+            setSelectedMemberId={setSelectedMemberId}
           />
-          {!loan.member_id && (
-            <div className="grid gap-2">
-              <Label htmlFor="member_id">Member (Optional)</Label>
-              <MemberFK
-                defaultValue={selectedMemberId}
-                selectedMemberId={selectedMemberId}
-                setSelectedMemberId={setSelectedMemberId}
-              />
-            </div>
-          )}
+
           <SubmitButton />
         </form>
       </DialogContent>
@@ -212,23 +232,61 @@ export default function EditLoanDialog({ loan }: EditLoanDialogProps) {
 
 function DynamicForm({
   fields,
-  className,
   selectedStatus,
   setSelectedStatus,
+  selectedDate,
+  setSelectedDate,
+  selectedMemberId,
+  setSelectedMemberId,
 }: DynamicFormProps) {
+  const handleStatusChange = (value: string) => {
+    setSelectedStatus(value);
+    console.log("Status changed to:", value);
+  };
+
   return (
-    <div className={cn("grid items-start gap-4", className)}>
+    <div className={cn("grid items-start gap-4")}>
       {fields.map((field, index) => (
         <div key={index} className="grid gap-2">
           <Label htmlFor={field.name}>{field.label}</Label>
 
-          <input type="hidden" name="loan_status" value={selectedStatus} />
-
           {field.name === "loan_status" ? (
-            <ComboBoxResponsive
-              defaultValue={field.defaultValue}
-              selectedStatus={selectedStatus}
-              setSelectedStatus={setSelectedStatus}
+            <Select
+              onValueChange={handleStatusChange}
+              value={selectedStatus}
+              defaultValue="Select Status"
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Status</SelectLabel>
+                  <SelectItem
+                    value="Checked-Out"
+                    disabled={selectedStatus === "Checked-Out"}
+                  >
+                    Checked-Out
+                  </SelectItem>
+                  <SelectItem
+                    value="Returned"
+                    disabled={selectedStatus === "Returned"}
+                  >
+                    Returned
+                  </SelectItem>
+                  <SelectItem value="Overdue" disabled>
+                    Overdue
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          ) : field.name === "date_due" ? (
+            <DatePicker selected={selectedDate} onSelect={setSelectedDate} />
+          ) : field.name === "member_id" ? (
+            <MemberFK
+              defaultValue={selectedMemberId}
+              selectedMemberId={selectedMemberId}
+              setSelectedMemberId={setSelectedMemberId}
             />
           ) : (
             <Input
@@ -240,7 +298,6 @@ function DynamicForm({
                 field.name === "loan_id" ||
                 field.name === "book_id" ||
                 field.name === "date_checked_out" ||
-                field.name === "date_due" ||
                 field.name === "date_returned"
               }
             />

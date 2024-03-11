@@ -15,7 +15,7 @@ const schema = z.object({
   date_due: z.date(),
   date_returned: z.date().nullable(),
   book_id: z.number(),
-  member_id: z.number(),
+  member_id: z.number().nullable(),
   changed_date: z.date(),
 });
 export const editLoan = async (loan_id: number, loan: unknown) => {
