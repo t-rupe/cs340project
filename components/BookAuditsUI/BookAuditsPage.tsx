@@ -16,10 +16,12 @@ type BookAudit = {
 };
 
 type BookAuditsPageProps = {
-  data: BookAudit[];
+  data: BookAudit | BookAudit[];
 };
 
 const BookAuditsPage = ({ data }: BookAuditsPageProps) => {
+  const audits = Array.isArray(data) ? data : [data].filter(Boolean);
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
       <div className="border rounded-lg shadow-sm mb-8">
@@ -33,11 +35,10 @@ const BookAuditsPage = ({ data }: BookAuditsPageProps) => {
               <TableHead>Book ID</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Changed Date</TableHead>
-              
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((audit, index) => (
+            {audits.map((audit, index) => (
               <TableRow key={index}>
                 <TableCell>{audit.book_audit_id}</TableCell>
                 <TableCell>{audit.book_id}</TableCell>

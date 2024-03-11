@@ -18,6 +18,9 @@ import { z } from "zod";
 import { addBook } from "@/app/utils/Books/addBook";
 import { addBookAudit } from "@/app/utils/BookAudits/addBookAudit";
 import { getBookId } from "@/app/utils/BookAudits/getBookId";
+
+import { Checkbox } from "@/components/ui/checkbox";
+
 // Zod schema for validating the input
 const schema = z.object({
   book_id: z.number().optional(),
@@ -47,6 +50,12 @@ const schema = z.object({
 
 export default function AddBook() {
   const [open, setOpen] = React.useState(false);
+
+  const [trackInAudit, setTrackInAudit] = React.useState(false);
+
+  const handleCheckboxChange = () => {
+    setTrackInAudit(!trackInAudit);
+  };
 
   // Client action to add a new book
   const clientAction = async (formData: FormData) => {
@@ -99,21 +108,24 @@ export default function AddBook() {
 
     console.log("response", result.data);
 
-    const bookID = await getBookId(result.data.title)
-    const bookAudit = {
-      book_id: bookID,
-      book_status: "Available",
-      changed_date: new Date(),
-    };
+    const bookID = await getBookId(result.data.title);
 
-    // Send a request to create a new book_audit record
-    const auditResponse = await addBookAudit(bookAudit);
-    
+    // Send a request to create a new book_audit record if a user chooses to add the tracking for that added book.
+    // If trackInAudit is true, create a book_audit record
+    if (trackInAudit) {
+      const bookAudit = {
+        book_id: bookID, // Assuming `response` contains the `book_id`
+        book_status: "Available",
+        changed_date: new Date(),
+      };
+
+      await addBookAudit(bookAudit);
+    }
 
     // If the response is successful, close the dialog and display a 'successful' toast message
     setOpen(false);
     toast({
-      description: "Book added! 🥳",
+      description: "Book added successfully! 🥳",
     });
   };
 
@@ -147,6 +159,14 @@ export default function AddBook() {
             <Label htmlFor="book_type">Type</Label>
             <Input id="book_type" name="book_type" />
           </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              onCheckedChange={handleCheckboxChange}
+              id="trackInAudit"
+            />
+            <Label htmlFor="trackInAudit">Track this book in Book Audits?</Label>
+          </div>
+
           <SubmitButton />
         </form>
       </DialogContent>
