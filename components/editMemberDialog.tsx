@@ -17,6 +17,7 @@ import { useFormStatus } from "react-dom";
 import { nullable, z } from "zod";
 import { toast, useToast } from "./ui/use-toast";
 import { editMember } from "@/app/utils/Members/editMember";
+import States from "@/components/States";
 
 interface Field {
   name: string;
@@ -28,80 +29,82 @@ interface Field {
 interface DynamicFormProps {
   fields: Field[];
   className?: string;
+  stateValue: string;
+  setStateValue: (value: string) => void;
 }
 
 type Member = {
-    member_id: number; 
-    member_first_name: string; 
-    member_last_name: string; 
-    phone_1: string; 
-    phone_2: string; 
-    street_1: string; 
-    street_2: string; 
-    city: string; 
-    state: string; 
-    country: string; 
-    zip_code: string; 
-    created_date: Date; 
-    changed_date: Date; 
+  member_id: number;
+  member_first_name: string;
+  member_last_name: string;
+  phone_1: string;
+  phone_2: string;
+  street_1: string;
+  street_2: string;
+  city: string;
+  state: string;
+  country: string;
+  zip_code: string;
+  created_date: Date;
+  changed_date: Date;
 };
-
 
 interface EditMemberDialogProps {
   member: Member;
 }
 
 const schema = z.object({
-    member_id: z.number().optional(),
-    member_first_name: z
-      .string()
-      .trim()
-      .min(1, { message: "First name is required" })
-      .max(255, { message: "First name is too long" }),
-    member_last_name: z
-      .string()
-      .trim()
-      .min(1, { message: "Last name is required" })
-      .max(255, { message: "Last name is too long" }),
-    phone_1: z
-      .string()
-      .trim()
-      .min(1, { message: "Phone 1 is required" })
-      .max(255, { message: "Phone 1 is too long" }),
-    phone_2: z.string().optional(),
-    street_1: z
-      .string()
-      .trim()
-      .min(1, { message: "Street 1 is required" })
-      .max(255, { message: "Street 1 is too long" }),
-    street_2: z.string().optional(),
-    city: z
-      .string()
-      .trim()
-      .min(1, { message: "City is required" })
-      .max(255, { message: "City is too long" }),
-    state: z
-      .string()
-      .trim()
-      .min(1, { message: "State is required" })
-      .max(2, { message: "Please enter two characters for state." }),
-    country: z
-      .string()
-      .trim()
-      .min(1, { message: "Country is required" })
-      .max(2, { message: "Please enter two characters for country" }),
-    zip_code: z
-      .string()
-      .trim()
-      .min(1, { message: "Zip code is required" })
-      .max(255, { message: "Zip code is too long" }),
-    created_date: z.date(),
-    changed_date: z.date(),
+  member_id: z.number().optional(),
+  member_first_name: z
+    .string()
+    .trim()
+    .min(1, { message: "First name is required" })
+    .max(255, { message: "First name is too long" }),
+  member_last_name: z
+    .string()
+    .trim()
+    .min(1, { message: "Last name is required" })
+    .max(255, { message: "Last name is too long" }),
+  phone_1: z
+    .string()
+    .trim()
+    .min(1, { message: "Phone 1 is required" })
+    .max(255, { message: "Phone 1 is too long" }),
+  phone_2: z.string().optional(),
+  street_1: z
+    .string()
+    .trim()
+    .min(1, { message: "Street 1 is required" })
+    .max(255, { message: "Street 1 is too long" }),
+  street_2: z.string().optional(),
+  city: z
+    .string()
+    .trim()
+    .min(1, { message: "City is required" })
+    .max(255, { message: "City is too long" }),
+  state: z
+    .string()
+    .trim()
+    .min(1, { message: "State is required" })
+    .max(2, { message: "Please enter two characters for state." }),
+  country: z
+    .string()
+    .trim()
+    .min(1, { message: "Country is required" })
+    .max(2, { message: "Please enter two characters for country" }),
+  zip_code: z
+    .string()
+    .trim()
+    .min(1, { message: "Zip code is required" })
+    .max(255, { message: "Zip code is too long" }),
+  created_date: z.date(),
+  changed_date: z.date(),
 });
 export default function EditMemberDialog({ member }: EditMemberDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const [stateValue, setStateValue] = React.useState(member.state);
 
-  const currentTime = new Date().toISOString().split('T')[0];
+  const currentTime = new Date().toISOString().split("T")[0];
 
   const fields = [
     {
@@ -117,23 +120,23 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       type: "text",
     },
     {
-        name: "member_last_name",
-        label: "Member Last Name",
-        defaultValue: member.member_last_name,
-        type: "text",
-      },
+      name: "member_last_name",
+      label: "Member Last Name",
+      defaultValue: member.member_last_name,
+      type: "text",
+    },
     {
-        name: "phone_1",
-        label: "Phone 1",
-        defaultValue: member.phone_1,
-        type: "text",
-      },
+      name: "phone_1",
+      label: "Phone 1",
+      defaultValue: member.phone_1,
+      type: "text",
+    },
     {
-        name: "phone_2",
-        label: "Phone 2",
-        defaultValue: member.phone_2,
-        type: "text",
-      },
+      name: "phone_2",
+      label: "Phone 2",
+      defaultValue: member.phone_2,
+      type: "text",
+    },
     {
       name: "street_1",
       label: "Street 1",
@@ -141,41 +144,41 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       type: "text",
     },
     {
-        name: "street_2",
-        label: "Street 2",
-        defaultValue: member.street_2,
-        type: "text",
+      name: "street_2",
+      label: "Street 2",
+      defaultValue: member.street_2,
+      type: "text",
     },
     {
-        name: "city",
-        label: "City",
-        defaultValue: member.city,
-        type: "text",
+      name: "city",
+      label: "City",
+      defaultValue: member.city,
+      type: "text",
     },
     {
-        name: "state",
-        label: "State",
-        defaultValue: member.state,
-        type: "text",
+      name: "state",
+      label: "State",
+      defaultValue: stateValue,
+      type: "text",
     },
     {
-        name: "country",
-        label: "Country",
-        defaultValue: member.country,
-        type: "text",
-      },
-    {
-        name: "zip_code",
-        label: "Zip Code",
-        defaultValue: member.zip_code,
-        type: "text",
+      name: "country",
+      label: "Country",
+      defaultValue: member.country,
+      type: "text",
     },
     {
-        name: "created_date",
-        label: "Created Date",
-        defaultValue: member.created_date.toString(),
-        type: "date",
-      },
+      name: "zip_code",
+      label: "Zip Code",
+      defaultValue: member.zip_code,
+      type: "text",
+    },
+    {
+      name: "created_date",
+      label: "Created Date",
+      defaultValue: member.created_date.toString(),
+      type: "date",
+    },
     {
       name: "changed_date",
       label: "Changed Date",
@@ -196,7 +199,7 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       street_1: formData.get("street_1"),
       street_2: formData.get("street_2"),
       city: formData.get("city"),
-      state: formData.get("state"),
+      state: stateValue.toUpperCase(),
       country: formData.get("country"),
       zip_code: formData.get("zip_code"),
       created_date: member.created_date,
@@ -236,16 +239,16 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
       toast({
         variant: "destructive",
         description:
-        response.error.member_first_name ||
-        response.error.member_last_name ||
-        response.error.phone_1 ||
-        response.error.phone_2 ||
-        response.error.street_1 ||
-        response.error.street_2 ||
-        response.error.city ||
-        response.error.state ||
-        response.error.country ||
-        response.error.zip_code,
+          response.error.member_first_name ||
+          response.error.member_last_name ||
+          response.error.phone_1 ||
+          response.error.phone_2 ||
+          response.error.street_1 ||
+          response.error.street_2 ||
+          response.error.city ||
+          response.error.state ||
+          response.error.country ||
+          response.error.zip_code,
       });
     }
 
@@ -271,7 +274,11 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <form action={clientAction} className={cn("grid items-start gap-4")}>
-          <DynamicForm fields={fields} />
+          <DynamicForm
+            fields={fields}
+            stateValue={stateValue}
+            setStateValue={setStateValue}
+          />
           <SubmitButton />
         </form>
       </DialogContent>
@@ -279,26 +286,31 @@ export default function EditMemberDialog({ member }: EditMemberDialogProps) {
   );
 }
 
-function DynamicForm({ fields, className }: DynamicFormProps) {
-  // Renders a dynamic edit form based on the fields prop, defined at the top of the file
+function DynamicForm({ fields, stateValue, setStateValue }: DynamicFormProps) {
   return (
-    <div className={cn("grid items-start gap-4", className)}>
+    <div className={cn("grid items-start gap-4")}>
       {fields.map((field, index) => (
         <div key={index} className="grid gap-2">
           <Label htmlFor={field.name}>{field.label}</Label>
-
-          {/* Displays the member_id field for UI/UX but disables it, preventing users from manually editing member_id */}
-          <Input
-            type={field.type}
-            id={field.name}
-            name={field.name}
-            defaultValue={field.defaultValue}
-            disabled={
-              field.name === "member_id" ||
-              field.name === "changed_date" ||
-              field.name === "created_date"
-            }
-          />
+          {field.name === "state" ? (
+            <States
+              value={stateValue}
+              onChange={setStateValue}
+              defaultValue={field.defaultValue}
+            />
+          ) : (
+            <Input
+              type={field.type}
+              id={field.name}
+              name={field.name}
+              defaultValue={field.defaultValue}
+              disabled={
+                field.name === "member_id" ||
+                field.name === "changed_date" ||
+                field.name === "created_date"
+              }
+            />
+          )}
         </div>
       ))}
     </div>
