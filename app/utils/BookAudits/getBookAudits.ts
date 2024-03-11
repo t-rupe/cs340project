@@ -1,5 +1,6 @@
-'use server';
+"use server";
 import { db } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 
 // This is the type interface we have to use to define the shape of the data we are fetching from the database. Essentially this says, the each record has these fields.
 export interface BookAudit {
@@ -7,7 +8,6 @@ export interface BookAudit {
   book_id: number;
   book_status: string;
   changed_date: Date;
-
 }
 
 export const getBookAudits = async (): Promise<BookAudit[]> => {
@@ -20,6 +20,7 @@ export const getBookAudits = async (): Promise<BookAudit[]> => {
   // This releases the connection back to the pool so that other requests can use it.
   client.release();
 
+  revalidatePath("/bookaudits");
   // This returns the rows as an array of book objects.
   return rows as BookAudit[];
 };

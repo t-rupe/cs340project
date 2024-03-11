@@ -49,10 +49,38 @@ export const editLoan = async (loan_id: number, loan: unknown) => {
   }, book_id = ${book_id}, member_id = ${member_id}, changed_date = ${changed_date.toISOString()} 
     WHERE loan_id = ${loan_id}
   `;
+
+  // Update the book_status in the Books table based on the loan_status
+  if (loan_status === "Returned") {
+    await client.sql`
+      UPDATE Books
+      SET book_status = 'Available'
+      WHERE book_id = ${book_id};
+    `;
+    await client.sql`
+      Update BookAudits
+      SET book_status = 'Available'
+      WHERE book_id = ${book_id}
+    `;
+  } else if (loan_status === "Checked-Out" || loan_status === "Overdue") {
+    await client.sql`
+      UPDATE Books
+      SET book_status = 'Unavailable'
+      WHERE book_id = ${book_id};
+    `;
+    await client.sql`
+      Update BookAudits
+      SET book_status = 'Unavailable'
+      WHERE book_id = ${book_id}
+    `;
+  }
+
   // Releases the connection back to the pool
   client.release();
 
   // Refreshes the cache for the loans page
   revalidatePath("/loans");
+  revalidatePath("/books");
+  revalidatePath("/bookaudits");
   return rows[0];
 };

@@ -30,6 +30,12 @@ export const deleteLoan = async (loan_id: number) => {
     WHERE book_id = ${book_id};
   `;
 
+  await client.sql`
+    Update BookAudits
+    SET book_status = 'Available'
+    WHERE book_id = ${book_id}  
+  `
+
   client.release();
 
   if (rowCount === 0) {

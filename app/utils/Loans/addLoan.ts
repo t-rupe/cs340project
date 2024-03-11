@@ -27,9 +27,8 @@ export const addLoan = async (loan: unknown) => {
   }
 
   const client = await db.connect();
-  
 
-  // Destructures the 
+  // Destructures the
   const loan_status = result.data.loan_status;
   const date_checked_out = result.data.date_checked_out;
   const date_due = result.data.date_due;
@@ -57,11 +56,23 @@ export const addLoan = async (loan: unknown) => {
   // Inserts the loan into the database
   const { rows } = await client.sql`
     INSERT INTO Loans (loan_status, date_checked_out, date_due, date_returned, book_id, member_id, changed_date) 
-    VALUES (${loan_status}, ${date_checked_out.toISOString()}, ${date_due.toISOString()}, ${date_returned?.toISOString() ?? null}, ${book_id}, ${member_id}, ${changed_date.toISOString()}) 
+    VALUES (${loan_status}, ${date_checked_out.toISOString()}, ${date_due.toISOString()}, ${
+    date_returned?.toISOString() ?? null
+  }, ${book_id}, ${member_id}, ${changed_date.toISOString()}) 
   `;
+
+  // Update the book_status in the Books table
+  await client.sql`
+    UPDATE Books
+    SET book_status = 'Unavailable'
+    WHERE book_id = ${book_id};
+  `;
+
   client.release();
 
-  // Refreshes the cache for the /loans page
+  // Refreshes the cache for the  pages
   revalidatePath("/loans");
+  revalidatePath("/bookaudits");
+  revalidatePath("/books");
   return rows[0];
 };
