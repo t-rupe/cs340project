@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,10 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import NavLink from "@/components/NavLink";
 type ActivePath = "books" | "authors" | "members" | "loans" | "bookaudits";
-import { usePathname } from "next/navigation";
 
 import {
   Book,
+  BookA,
   HardDrive,
   LucideHeartHandshake,
   Notebook,
@@ -37,9 +36,6 @@ type ShellProps = {
 };
 
 export default function Shell({ children }: ShellProps) {
-
-
-
   return (
     <div className="flex min-h-screen w-full bg-gray-50">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -73,6 +69,10 @@ export default function Shell({ children }: ShellProps) {
                 <Notebook className="h-4 w-4" />
                 BookAudits
               </NavLink>
+              <NavLink href="authors-books">
+                <BookA className="h-4 w-4" />
+                AuthorsBooks
+              </NavLink>
             </nav>
           </div>
         </div>
@@ -83,9 +83,8 @@ export default function Shell({ children }: ShellProps) {
             <span className="sr-only">Books</span>
           </Link>
           <div className="w-full flex-1">
-            <form >
-              <div className="relative">
-              </div>
+            <form>
+              <div className="relative"></div>
             </form>
           </div>
           <DropdownMenu>

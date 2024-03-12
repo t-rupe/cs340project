@@ -81,7 +81,8 @@ export default function AddAuthorsBook() {
             <Label htmlFor="author">Author</Label>
             <AuthorFK
               defaultValue={selectedAuthorId}
-              onChange={setSelectedAuthorId}
+              selectedAuthorId={selectedAuthorId}
+              setSelectedAuthorId={setSelectedAuthorId}
             />
           </div>
           <div className="grid gap-2">

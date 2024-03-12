@@ -21,9 +21,9 @@ type AuthorsBooksPageProps = {
 
 const AuthorsBooksPage = ({ data }: AuthorsBooksPageProps) => {
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 max-w-4xl mx-auto">
       <div className="border rounded-lg shadow-sm mb-8">
-        <div className="p-4">
+        <div className="p-4 flex justify-between">
           <h2 className="text-lg font-semibold">Authors Books</h2>
           <AddAuthorBooks />
         </div>

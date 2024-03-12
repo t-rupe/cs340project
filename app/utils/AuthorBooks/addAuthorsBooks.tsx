@@ -33,6 +33,7 @@ export const addAuthorBook = async (authorBook: { author_id: number; book_id: nu
   // Releases the connection back to the pool
   client.release();
 
+  revalidatePath("/authors-books")
 
   // Returns the newly created record
   return rows[0];
