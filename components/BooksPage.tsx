@@ -11,6 +11,8 @@ import { DeleteButton } from "@/components/AlertDestructive";
 import AddBook from "./AddBook";
 import { deleteBook } from "@/app/utils/Books/deleteBook";
 import EditBookDialog from "./editBookDialog";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type Book = {
   book_id: number;
@@ -64,7 +66,11 @@ const BooksPage = ({ data }: BookPageProps) => {
                   {/* Below is the component for the Editbook Dialog */}
                   <EditBookDialog book={book} />
                   {/* Below is the component for the Delete Dialog, requires an id and the delete action*/}
-                  <DeleteButton id={book.book_id} deleteFunction={deleteBook} type="Book"/>
+                  <DeleteButton
+                    id={book.book_id}
+                    deleteFunction={deleteBook}
+                    type="Book"
+                  />
                 </TableCell>
               </TableRow>
             ))}

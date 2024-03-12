@@ -111,10 +111,9 @@ export default function AddBook() {
     const bookID = await getBookId(result.data.title);
 
     // Send a request to create a new book_audit record if a user chooses to add the tracking for that added book.
-    // If trackInAudit is true, create a book_audit record
     if (trackInAudit) {
       const bookAudit = {
-        book_id: bookID, // Assuming `response` contains the `book_id`
+        book_id: bookID, 
         book_status: "Available",
         changed_date: new Date(),
       };

@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,8 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 import NavLink from "@/components/NavLink";
+type ActivePath = "books" | "authors" | "members" | "loans" | "bookaudits";
+import { usePathname } from "next/navigation";
 
 import {
   Book,
@@ -21,8 +24,22 @@ import {
   User,
 } from "lucide-react";
 import Footer from "./Footer";
+import { getBooks } from "@/app/utils/Books/getBooks";
+import { getAuthors } from "@/app/utils/Authors/getAuthors";
+import { getMembers } from "@/app/utils/Members/getMembers";
+import { getLoans } from "@/app/utils/Loans/getLoans";
+import { getBookAudits } from "@/app/utils/BookAudits/getBookAudits";
+import { useActiveLink } from "../app/contexts/ActiveLinkContext";
+import path from "path";
 
-export default function Shell({ children }: { children: React.ReactNode }) {
+type ShellProps = {
+  children: React.ReactNode;
+};
+
+export default function Shell({ children }: ShellProps) {
+
+
+
   return (
     <div className="flex min-h-screen w-full bg-gray-50">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -66,14 +83,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
             <span className="sr-only">Books</span>
           </Link>
           <div className="w-full flex-1">
-            <form>
+            <form >
               <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <Input
-                  className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
-                  placeholder="Search books..."
-                  type="search"
-                />
               </div>
             </form>
           </div>

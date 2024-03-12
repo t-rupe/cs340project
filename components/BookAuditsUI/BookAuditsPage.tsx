@@ -27,7 +27,9 @@ const BookAuditsPage = ({ data }: BookAuditsPageProps) => {
       <div className="border rounded-lg shadow-sm mb-8">
         <div className="p-4">
           <h2 className="text-lg font-semibold">Book Audits</h2>
+          <p>This table is responsible for tracking the changes to book status for a particular book. </p>
         </div>
+
         <Table className="bg-white">
           <TableHeader>
             <TableRow>

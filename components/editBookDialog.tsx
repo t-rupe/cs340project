@@ -17,6 +17,10 @@ import { useFormStatus } from "react-dom";
 import { z } from "zod";
 import { toast, useToast } from "./ui/use-toast";
 import { editBook } from "@/app/utils/Books/editBook";
+import { deleteBookAudit } from "@/app/utils/BookAudits/deleteBookAudit";
+import { Checkbox } from "@/components/ui/checkbox";
+import { addBookAudit } from "@/app/utils/BookAudits/addBookAudit";
+import { getBookById } from "@/app/utils/BookAudits/getBookById";
 
 interface Field {
   name: string;
@@ -69,10 +73,26 @@ const schema = z.object({
   book_status: z.string().optional(),
   changed_date: z.date().optional(),
 });
+
 export default function EditBookDialog({ book }: EditBookDialogProps) {
   const [open, setOpen] = React.useState(false);
+  const [trackInAudit, setTrackInAudit] = React.useState(false);
+  const [auditExists, setAuditExists] = React.useState(false);
 
-  const currentTime = new Date().toISOString().split('T')[0];
+  React.useEffect(() => {
+    const checkAuditExistence = async () => {
+      const audit = await getBookById(book.book_id);
+      setAuditExists(audit !== null);
+    };
+
+    checkAuditExistence();
+  }, [book.book_id]);
+
+  const handleAuditChange = (checked: boolean) => {
+    setTrackInAudit(checked);
+  };
+
+  const currentTime = new Date().toISOString().split("T")[0];
 
   const fields = [
     {
@@ -170,7 +190,20 @@ export default function EditBookDialog({ book }: EditBookDialogProps) {
       });
     }
 
-    // If the response is successful, close the dialog and display a 'successful' toast message
+    if (trackInAudit && !auditExists) {
+      const auditResponse = await addBookAudit({
+        book_id: book.book_id,
+        book_status: "Available", // or any other status you want to set
+        changed_date: new Date(),
+      });
+
+      setAuditExists(true);
+    } else if (!trackInAudit && auditExists) {
+      await deleteBookAudit(book.book_id);
+      setAuditExists(false);
+    }
+
+
     setOpen(false);
     toast({
       description: "Book updated! 🥳",
@@ -193,6 +226,21 @@ export default function EditBookDialog({ book }: EditBookDialogProps) {
         </DialogHeader>
         <form action={clientAction} className={cn("grid items-start gap-4")}>
           <DynamicForm fields={fields} />
+          <div className="flex gap-2">
+            <Checkbox
+              checked={trackInAudit}
+              onCheckedChange={handleAuditChange}
+              id="trackInAudit"
+            />
+            <Label htmlFor="trackInAudit">
+              Track this book in Book Audits?
+            </Label>
+          </div>
+          <p className="text-xs gray-600">
+            {auditExists
+              ? "This book is currently being tracked in Book Audits"
+              : "This book is not currently being tracked in Book Audits"}
+          </p>
           <SubmitButton />
         </form>
       </DialogContent>

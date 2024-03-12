@@ -60,5 +60,6 @@ export const addBookAudit = async (bookaudit: unknown) => {
 
   // Refreshes the cache for the /bookaudits page
   revalidatePath("/bookaudits");
+  revalidatePath("/books");
   return rows[0];
 };

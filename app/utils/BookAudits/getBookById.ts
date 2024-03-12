@@ -26,6 +26,7 @@ export const getBookById = async (id: number) => {
   client.release();
 
   revalidatePath(`/bookaudits/${id}`)
+  revalidatePath("/books")
   // Returns the book_id or null if no book was found
   return rows[0] as BookAudit || null;
 };
