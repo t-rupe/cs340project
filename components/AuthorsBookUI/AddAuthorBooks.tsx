@@ -32,19 +32,32 @@ export default function AddAuthorsBook() {
   // Client action to add a new AuthorsBook record
   const clientAction = async () => {
     // Validates the input and returns early if the input is invalid.
-    const result = schema.safeParse({
-      author_id: Number(selectedAuthorId),
-      book_id: Number(selectedBookId),
-    });
 
-    if (!result.success) {
-      // Displays a toast message if the input is invalid
+    if (!selectedAuthorId || !selectedBookId) {
       toast({
         variant: "destructive",
         description: "Please select both an author and a book.",
       });
       return;
     }
+
+    // Validates the input and returns early if the input is invalid.
+    const result = schema.safeParse({
+      author_id: Number(selectedAuthorId),
+      book_id: Number(selectedBookId),
+    });
+
+    
+    if (!result.success) {
+      // Handle the parse error
+      toast({
+        variant: "destructive",
+        description: "Invalid input.",
+      });
+      return;
+    }
+  
+   
 
     // Sends a request to add a new AuthorsBook record to the server action 'addAuthorsBook'
     const response = await addAuthorBook(result.data);
@@ -88,7 +101,6 @@ export default function AddAuthorsBook() {
           <div className="grid gap-2">
             <Label htmlFor="book">Book</Label>
             <BookFK
-              defaultValue={selectedBookId}
               selectedBookId={selectedBookId}
               setSelectedBookId={setSelectedBookId}
             />

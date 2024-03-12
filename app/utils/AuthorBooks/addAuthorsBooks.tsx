@@ -23,6 +23,20 @@ export const addAuthorBook = async (authorBook: { author_id: number; book_id: nu
   // Connects to the database
   const client = await db.connect();
 
+    // Checks if a record with the same author_id and book_id already exists
+    const { rows: existingRecords } = await client.sql`
+    SELECT * FROM AuthorsBooks WHERE author_id = ${authorBook.author_id} AND book_id = ${authorBook.book_id}
+  `;
+
+  if (existingRecords.length > 0) {
+    // If a record already exists, releases the connection and returns an error message
+    client.release();
+    return {
+      error: "A record with the same author_id and book_id already exists.",
+    };
+  }
+
+
   // Inserts a new record into the AuthorsBooks table
   const { rows } = await client.sql`
     INSERT INTO AuthorsBooks (author_id, book_id) 
