@@ -1,16 +1,16 @@
 /**
  * This is the BookAuditsPage component. It displays a list of book audits in a table.
- * 
+ *
  * The component uses several components from the ShadCN UI library, including Table, TableRow, TableHeader, TableCell, and TableBody.
  * The ShadCN UI library provides a set of reusable components for building user interfaces.
  * Source: https://ui.shadcn.com/
- * 
+ *
  * The component receives a 'data' prop, which is an array of book audits to be displayed.
- * 
+ *
  * Each book audit has a 'book_audit_id', 'book_id', 'book_status', and 'changed_date'.
- * 
+ *
  * The component maps over the 'audits' array and creates a TableRow for each audit. Each TableRow contains four TableCells, one for each property of the audit.
- * 
+ *
  */
 "use client";
 import {
@@ -21,6 +21,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
+import Link from "next/link";
 
 type BookAudit = {
   book_audit_id: number;
@@ -41,7 +42,12 @@ const BookAuditsPage = ({ data }: BookAuditsPageProps) => {
       <div className="border rounded-lg shadow-sm mb-8">
         <div className="p-4">
           <h2 className="text-lg font-semibold">Book Audits</h2>
-          <p>This table is responsible for tracking the changes to book status for a particular book. </p>
+          <p>
+            This table is responsible for tracking the changes to book status
+            for a particular book. To create a new record, select "Track this
+            book" when creating a new book or edit a book on the{" "}
+            <Link href="/books" className="text-blue-700 underline">/books page!</Link>
+          </p>
         </div>
 
         <Table className="bg-white">
