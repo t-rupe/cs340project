@@ -16,7 +16,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from ".././ui/use-toast";
 import { set, z } from "zod";
 import { BookFK } from "@/components/BookFK";
-import { MemberFK } from "@/components/MemberFK";
+import { MemberFK } from "@/components/MembersUI/MemberFK";
 import { getLoans } from "@/app/utils/Loans/getLoans";
 import { updateBookStatus } from "@/app/utils/Loans/updateBookStatus";
 // Zod schema for validating the input

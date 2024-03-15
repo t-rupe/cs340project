@@ -16,7 +16,7 @@ import { editLoan } from "@/app/utils/Loans/editLoan";
 import { useFormStatus } from "react-dom";
 import { z } from "zod";
 import { toast } from ".././ui/use-toast";
-import { MemberFK } from "@/components/MemberFK";
+import { MemberFK } from "@/components/MembersUI/MemberFK";
 import {
   Select,
   SelectContent,
