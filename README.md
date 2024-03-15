@@ -2,7 +2,12 @@
 
 Created by Taylor Rupe & Caleb Kasprzyk
 
+# Live demo 🚀
+https://cs340project.vercel.app
+
 ## NexaLibrium is a library management system developed with Next.js, a React framework designed for server-side rendering and creating web applications. The project is designed for educational purposes to simplify library processes through an easy-to-use interface that manages books, authors, and their associations.
+
+
 
 ## Features
 
