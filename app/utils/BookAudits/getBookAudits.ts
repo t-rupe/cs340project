@@ -1,3 +1,16 @@
+/**
+ * This is the getBookAudits server action. It fetches all book audits from the BookAudits table in the database.
+ * The function does not receive any input.
+ * 
+ * The function connects to the database and fetches all book audits from the BookAudits table.
+ * It then releases the connection back to the pool and returns the fetched book audits.
+ * 
+ * The returned book audits are of type 'BookAudit', which is defined in this file.
+ * A 'BookAudit' has a 'book_audit_id', a 'book_id', a 'book_status', and a 'changed_date'.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

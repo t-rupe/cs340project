@@ -1,3 +1,15 @@
+/**
+ * This is a ComboBoxResponsive component that allows users to select a status from a dropdown list.
+ * The dropdown list is implemented with a popover and contains a list of statuses.
+ * Each status is an item in the dropdown list, and when an item is selected, the selected status is displayed on the button that triggers the dropdown.
+ * The selected status is also passed to a callback function provided via props.
+ * 
+ * The component uses the following components:
+ * - A custom Button component
+ * - A custom Command component for the dropdown list
+ * - A custom Popover component for the dropdown
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";

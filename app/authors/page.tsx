@@ -1,4 +1,4 @@
-import AuthorsPage from "@/components/AuthorsPage";
+import AuthorsPage from "@/components/AuthorsUI/AuthorsPage";
 
 import { getAuthors } from "@/app/utils/Authors/getAuthors";
 

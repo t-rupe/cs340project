@@ -1,3 +1,21 @@
+/**
+ * This is the editLoan server action. It updates a loan in the Loans table in the database.
+ * The function receives a 'loan_id' and a 'loan' object as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and updates the loan with the given 'loan_id'.
+ * It sets the 'loan_status', 'date_checked_out', 'date_due', 'date_returned', 'book_id', 'member_id', and 'changed_date' fields to the values provided in the 'loan' object.
+ * 
+ * After updating the loan, it updates the 'book_status' in the Books table and the BookAudits table based on the 'loan_status'.
+ * 
+ * It then releases the connection back to the pool and returns the updated loan.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/loans', '/books', and '/bookaudits' paths.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
@@ -32,7 +50,7 @@ export const editLoan = async (loan_id: number, loan: unknown) => {
   // Connects to the database
   const client = await db.connect();
 
-  // Destructures the
+  // Destructures the supplied loan data
   const loan_status = result.data.loan_status;
   const date_checked_out = result.data.date_checked_out;
   const date_due = result.data.date_due;
@@ -50,7 +68,7 @@ export const editLoan = async (loan_id: number, loan: unknown) => {
     WHERE loan_id = ${loan_id}
   `;
 
-  // Update the book_status in the Books table based on the loan_status
+  // Update the book_status in the Books table based on the loan_status also update the book_status in the BookAudits table
   if (loan_status === "Returned") {
     await client.sql`
       UPDATE Books
@@ -78,7 +96,7 @@ export const editLoan = async (loan_id: number, loan: unknown) => {
   // Releases the connection back to the pool
   client.release();
 
-  // Refreshes the cache for the loans page
+  // Refreshes the cache for the respective pages
   revalidatePath("/loans");
   revalidatePath("/books");
   revalidatePath("/bookaudits");

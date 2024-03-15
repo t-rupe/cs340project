@@ -1,3 +1,19 @@
+/**
+ * This is the editBook server action. It updates a book in the Books table in the database.
+ * The function receives a 'book_id' and a 'book' object as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and updates the book with the given 'book_id'.
+ * It sets the 'title', 'isbn', 'book_category', 'book_type', 'book_status', and 'changed_date' fields to the values provided in the 'book' object.
+ * 
+ * After updating the book, it releases the connection back to the pool and returns the updated book.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/books' path.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

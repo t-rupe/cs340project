@@ -1,3 +1,19 @@
+/**
+ * This is the addAuthor server action. It adds a new author to the Authors table in the database.
+ * The function receives an object with a 'first_name' and a 'last_name' as input.
+ *
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ *
+ * The function connects to the database and checks if an author with the same 'first_name' and 'last_name' already exists.
+ * If such an author exists, it releases the connection and returns an error message.
+ *
+ * If no such author exists, it inserts a new author into the Authors table and returns the newly created author.
+ *
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/authors' path.
+ *
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
@@ -15,8 +31,7 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, { message: "Last name is required" })
-    .max(255, { message: "Last name is too long" }),    
-
+    .max(255, { message: "Last name is too long" }),
 });
 
 export const addAuthor = async (author: unknown) => {
@@ -35,7 +50,6 @@ export const addAuthor = async (author: unknown) => {
   // Destructures the input ** change this **
   const firstName = result.data.first_name;
   const lastName = result.data.last_name;
- 
 
   const { rows: existingAuthors } = await client.sql`
   SELECT * FROM Authors WHERE first_name = ${firstName} AND last_name = ${lastName}

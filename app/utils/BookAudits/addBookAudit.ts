@@ -1,3 +1,19 @@
+/**
+ * This is the addBookAudit server action. It adds a new book audit to the BookAudits table in the database.
+ * The function receives an object with a 'book_id', 'book_status', and 'changed_date' as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and checks if a book audit with the same 'book_id', 'book_status', and 'changed_date' already exists.
+ * If such a book audit exists, it releases the connection and returns an error message.
+ * 
+ * If no such book audit exists, it inserts a new book audit into the BookAudits table and returns the newly created book audit.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/bookaudits' and '/books' paths.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

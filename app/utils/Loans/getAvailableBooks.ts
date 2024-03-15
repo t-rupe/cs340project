@@ -1,3 +1,18 @@
+/**
+ * This is the getAvailableBooks server action. It fetches all available books from the Books table in the database.
+ * The function does not receive any input.
+ * 
+ * The function connects to the database and fetches all books from the Books table where the 'book_status' is 'Available'.
+ * It then releases the connection back to the pool and returns the fetched books.
+ * 
+ * The returned books are of type 'Book', which is defined in this file.
+ * A 'Book' has a 'book_id', 'title', 'isbn', 'book_category', 'book_type', 'book_status', and 'changed_date'.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/books' and '/loans' paths.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

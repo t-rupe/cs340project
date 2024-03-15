@@ -1,3 +1,13 @@
+/**
+ * This is a NavLink component for a navigation menu. It uses Next.js's Link component for navigation.
+ * The NavLink component receives a 'href' prop for the destination URL and 'children' prop for the link's content.
+ *
+ * The component uses a context 'ActiveLinkContext' to manage the active link state.
+ * If the current path is the same as the 'href' prop, the link is considered active and its style changes accordingly.
+ *
+ * When the link is clicked, the 'setActivePath' function from the 'ActiveLinkContext' is called with the 'href' prop to update the active link.
+ *
+ */
 "use client";
 import Link from "next/link";
 import { useActiveLink } from "../app/contexts/ActiveLinkContext";

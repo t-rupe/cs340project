@@ -1,3 +1,8 @@
+/**
+ * This is a macbook component created by Aceternity UI library, an open source reusuable component provider. 
+ * 
+ * Source: https://ui.aceternity.com/
+ */
 import React from "react";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
 

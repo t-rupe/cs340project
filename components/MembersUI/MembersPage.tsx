@@ -8,10 +8,9 @@ import {
   Table,
 } from "@/components/ui/table";
 import { DeleteButton } from "@/components/AlertDestructive";
-import AddMember from "./MembersUI/AddMember";
+import AddMember from "./AddMember";
 import { deleteMember } from "@/app/utils/Members/deleteMember";
-import { Edit } from "lucide-react";
-import EditMemberDialog from "./MembersUI/editMemberDialog";
+import EditMemberDialog from "./editMemberDialog";
 
 type Member = {
   member_id: number;

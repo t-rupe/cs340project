@@ -1,6 +1,6 @@
 
 import { getBooks } from "@/app/utils/Books/getBooks";
-import BooksPage from "@/components/BooksPage";
+import BooksPage from "@/components/BooksUI/BooksPage";
 
 export default async function Page() {
   const data = await getBooks();

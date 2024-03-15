@@ -1,3 +1,12 @@
+/**
+ * This is the DelayedParagraph component. It renders a paragraph with a delay of 2 seconds.
+ * The paragraph is initially hidden and fades in after the delay.
+ *
+ * The component uses the useState and useEffect hooks from React, and the useAnimation and motion components from Framer Motion for the animation.
+ *
+ * The useEffect hook sets up a timer that starts the animation after the delay. The timer is cleared when the component unmounts.
+ */
+
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 
@@ -14,7 +23,7 @@ export default function DelayedParagraph() {
           duration: 1,
         },
       });
-    }, 2000); // delay of 3 seconds
+    }, 2000); // 2 seconds
 
     return () => clearTimeout(timer);
   }, [controls]);

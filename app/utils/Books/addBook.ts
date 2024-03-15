@@ -1,3 +1,23 @@
+/**
+ * This is the addBook server action. It adds a new book to the Books table in the database.
+ * The function receives a 'book' object as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and checks if a book with the same 'title' and 'isbn' already exists.
+ * If such a book exists, it returns an error message.
+ * 
+ * If no such book exists, it inserts the new book into the database.
+ * It sets the 'title', 'isbn', 'book_category', 'book_type', 'book_status', and 'changed_date' fields to the values provided in the 'book' object.
+ * 
+ * After inserting the book, it releases the connection back to the pool and returns the inserted book.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/books' path.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
+
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

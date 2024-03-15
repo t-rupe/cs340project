@@ -1,4 +1,4 @@
-import LoansPage from "@/components/LoansPage";
+import LoansPage from "@/components/LoansUI/LoansPage";
 import { getLoans } from "@/app/utils/Loans/getLoans";
 
 export default async function Page() {

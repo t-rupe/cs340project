@@ -1,3 +1,19 @@
+/**
+ * This is the updateBookStatus server action. It updates the 'book_status' of a book in the Books table in the database.
+ * The function receives a 'book_id' as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and updates the 'book_status' of the book with the given 'book_id' to 'Checked-Out'.
+ * It then releases the connection back to the pool and returns the updated book.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/books' and '/loans' paths.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ * 
+ * Source: updateBookStatus.ts
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

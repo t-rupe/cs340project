@@ -1,3 +1,10 @@
+/**
+ * This is the home page component using components from Aceternity UI library, an open source reusuable component provider. Includes Framer Motion animations created by Aceternity UI.
+ * Source: https://ui.aceternity.com/
+ *
+ *
+ */
+
 "use client";
 import React from "react";
 import { SparklesCore } from "@/components/ui/sparkles";

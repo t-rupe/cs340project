@@ -1,3 +1,23 @@
+/**
+ * This is the addLoan server action. It adds a new loan to the Loans table in the database.
+ * The function receives a 'loan' object as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and checks if a loan with the same 'book_id' and 'member_id' already exists.
+ * If such a loan exists, it returns an error message.
+ * 
+ * If no such loan exists, it inserts the new loan into the database.
+ * It sets the 'loan_status', 'date_checked_out', 'date_due', 'date_returned', 'book_id', 'member_id', and 'changed_date' fields to the values provided in the 'loan' object.
+ * 
+ * After inserting the loan, it updates the 'book_status' in the Books table to 'Unavailable'.
+ * It then releases the connection back to the pool and returns the inserted loan.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/loans', '/bookaudits', and '/books' paths.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";

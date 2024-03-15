@@ -1,3 +1,19 @@
+/**
+ * This is the addMember server action. It adds a new member to the Members table in the database.
+ * The function receives a 'member' object as input.
+ *
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ *
+ * The function connects to the database and checks if a member with the same first name and last name already exists. If such a member exists, it returns an error message.
+ *
+ * If no such member exists, it inserts the new member into the Members table.
+ * It then releases the connection back to the pool and returns the inserted member.
+ *
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/members' path.
+ *
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
@@ -64,21 +80,20 @@ export const addMember = async (member: unknown) => {
   }
 
   const client = await db.connect();
-  
 
-  // Destructures the input 
-  const member_first_name = result.data.member_first_name; 
+  // Destructures the input
+  const member_first_name = result.data.member_first_name;
   const member_last_name = result.data.member_last_name;
   const phone_1 = result.data.phone_1;
   const phone_2 = result.data.phone_2;
-  const street_1 = result.data.street_1; 
-  const street_2 = result.data.street_2; 
-  const city = result.data.city; 
-  const state = result.data.state; 
-  const country = result.data.country; 
-  const zip_code = result.data.zip_code; 
-  const created_date = result.data.created_date; 
-  const changed_date = result.data.changed_date; 
+  const street_1 = result.data.street_1;
+  const street_2 = result.data.street_2;
+  const city = result.data.city;
+  const state = result.data.state;
+  const country = result.data.country;
+  const zip_code = result.data.zip_code;
+  const created_date = result.data.created_date;
+  const changed_date = result.data.changed_date;
 
   // Check if the member already exists
   const { rows: existingMembers } = await client.sql`
@@ -90,8 +105,10 @@ export const addMember = async (member: unknown) => {
 
     return {
       error: {
-        member_first_name: "A member with this first name and last name already exists",
-        member_last_name: "A member with this first name and last name already exists",
+        member_first_name:
+          "A member with this first name and last name already exists",
+        member_last_name:
+          "A member with this first name and last name already exists",
       },
     };
   }

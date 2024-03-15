@@ -1,6 +1,22 @@
+/**
+ * This is the ApplicationShell component, a layout component for the application.
+ * It includes a navigation menu on the left side and a main content area.
+ * The navigation menu contains links to different parts of the application, each represented by an icon and a label.
+ * The main content area is where the content of the current route is displayed.
+ * 
+ * The component also includes a header with a user menu dropdown, and a footer.
+ * 
+ * The component uses the following libraries/components:
+ * - Next.js's Link component for navigation
+ * - A custom Button component
+ * - A custom DropdownMenu component for the user menu
+ * - A custom NavLink component for the navigation links
+ * - lucide-react for icons
+ * - A custom Footer component
+ * 
+ */
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
@@ -10,7 +26,6 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 import NavLink from "@/components/NavLink";
-type ActivePath = "books" | "authors" | "members" | "loans" | "bookaudits";
 
 import {
   Book,
@@ -23,13 +38,6 @@ import {
   User,
 } from "lucide-react";
 import Footer from "./Footer";
-import { getBooks } from "@/app/utils/Books/getBooks";
-import { getAuthors } from "@/app/utils/Authors/getAuthors";
-import { getMembers } from "@/app/utils/Members/getMembers";
-import { getLoans } from "@/app/utils/Loans/getLoans";
-import { getBookAudits } from "@/app/utils/BookAudits/getBookAudits";
-import { useActiveLink } from "../app/contexts/ActiveLinkContext";
-import path from "path";
 
 type ShellProps = {
   children: React.ReactNode;

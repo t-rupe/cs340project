@@ -1,3 +1,19 @@
+/**
+ * This is the editBookAudit server action. It updates a book audit in the BookAudits table in the database.
+ * The function receives a 'book_audit_id' and a 'bookaudit' object as input.
+ * 
+ * The function validates the input using a Zod schema. If the input is invalid, it returns an error message.
+ * 
+ * The function connects to the database and updates the book audit with the given 'book_audit_id'.
+ * It sets the 'book_id', 'book_status', and 'changed_date' fields to the values provided in the 'bookaudit' object.
+ * 
+ * After updating the book audit, it retrieves the updated book audit from the database and returns it.
+ * 
+ * The function also calls the 'revalidatePath' function from the Next.js cache to invalidate the cache for the '/bookaudits' path.
+ * 
+ * This server action is adapted from the Next.js documentation for server actions and mutations.
+ * Source: https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+ */
 "use server";
 import { db } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
@@ -42,7 +58,7 @@ export const editBookAudit = async (book_audit_id: number, bookaudit: unknown) =
   // Releases the connection back to the pool
   client.release();
 
-  // Refreshes the cache for the home page
+  // Refreshes the cache for the bookaudit page
   revalidatePath("/bookaudits");
   return rows[0];
 };

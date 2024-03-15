@@ -1,3 +1,14 @@
+/**
+ * This is the DelayInstructions component. It displays a message instructing the user to scroll to the bottom of the page.
+ * The message is initially hidden and fades in after a delay of 3 seconds.
+ * 
+ * The component uses the useState and useEffect hooks from React, and the useAnimation and motion components from Framer Motion for the animation.
+ * The ChevronDownIcon from lucide-react is used to indicate the direction to scroll.
+ * 
+ * The useEffect hook sets up a timer that starts the animation after the delay. The timer is cleared when the component unmounts.
+ * 
+ */
+
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { ChevronDownIcon } from "lucide-react";

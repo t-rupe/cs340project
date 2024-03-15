@@ -1,5 +1,5 @@
 /**
- * This code uses components from ShadCN UI library, an open source reusuable component provider.
+ * A customized Toast component. Toast being a notification component that pops up on the screen to inform the user of a specific action or event.
  * Source: https://ui.shadcn.com/
  */
 
