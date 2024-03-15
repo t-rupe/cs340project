@@ -44,8 +44,8 @@ const BookAuditsPage = ({ data }: BookAuditsPageProps) => {
           <h2 className="text-lg font-semibold">Book Audits</h2>
           <p>
             This table is responsible for tracking the changes to book status
-            for a particular book. To create a new record, select "Track this
-            book" when creating a new book or edit a book on the{" "}
+            for a particular book. To create a new record, select &#34;Track this
+            book&#34; when creating a new book or edit a book on the{" "}
             <Link href="/books" className="text-blue-700 underline">/books page!</Link>
           </p>
         </div>
