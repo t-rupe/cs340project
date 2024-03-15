@@ -2,7 +2,7 @@
 
 Created by Taylor Rupe & Caleb Kasprzyk
 
-## NexaLibrium is a powerful and intuitive library management system built using Next.js, a popular React framework for server-side rendering and building modern web applications. This project aims to streamline library operations by providing a user-friendly interface for managing books, authors, and their relationships.
+## NexaLibrium is a library management system developed with Next.js, a React framework designed for server-side rendering and creating web applications. The project is designed for educational purposes to simplify library processes through an easy-to-use interface that manages books, authors, and their associations.
 
 ## Features
 
@@ -45,7 +45,7 @@ This project is licensed under the MIT License.
 
 ## Acknowledgements
 
-This project was bootstrapped with create-next-app to provide a starting boilerplate for a nextjs application. By adapting UI components from SHADCN and consulting the NextJs documentation we were able to implement our UI and CRUD operations. 
+This project was bootstrapped with create-next-app to provide a starting boilerplate for a nextjs application. By adapting UI components from SHADCN and consulting the NextJs documentation we were able to implement our UI and CRUD operations.
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [ShadCN-UI Documentation](https://ui.shadcn.com/docs)
