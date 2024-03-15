@@ -9,8 +9,11 @@ import {
   Table,
 } from "@/components/ui/table";
 import AddAuthorBooks from "./AddAuthorBooks";
+import EditBookDialog from "../editBookDialog";
+import EditAuthorsBook from "./EditAuthorsBooks";
 
 type AuthorBook = {
+  authorsbooks_id: number;
   author_id: number;
   book_id: number;
 };
@@ -30,15 +33,25 @@ const AuthorsBooksPage = ({ data }: AuthorsBooksPageProps) => {
         <Table className="bg-white">
           <TableHeader>
             <TableRow>
+              <TableHead>AuthorsBooks ID</TableHead>
               <TableHead>Author ID</TableHead>
               <TableHead>Book ID</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((authorBook, index) => (
               <TableRow key={index}>
-                <TableCell>{authorBook.author_id}</TableCell>
-                <TableCell>{authorBook.book_id}</TableCell>
+                <TableCell>{authorBook?.authorsbooks_id ?? "null"}</TableCell>
+                <TableCell>{authorBook?.author_id ?? "Null"}</TableCell>
+                <TableCell>{authorBook.book_id ?? "Null"}</TableCell>
+                <TableCell>
+                  <EditAuthorsBook
+                    authorsBooksId={authorBook.authorsbooks_id}
+                    initialAuthorId={authorBook.author_id}
+                    initialBookId={authorBook.book_id}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

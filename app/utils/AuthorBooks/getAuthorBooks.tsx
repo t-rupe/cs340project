@@ -2,6 +2,7 @@
 import { db } from "@vercel/postgres";
 
 export type AuthorBook = {
+  authorsbooks_id: number;
   author_id: number;
   book_id: number;
 };

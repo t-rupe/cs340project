@@ -1,16 +1,16 @@
 /**
- * BookFK Component
+ * AuthorsBooksFK Component
  * 
- * A custom foreign key selector for books. Fetches and displays a list of available books in a dropdown menu.
+ * A custom foreign key selector for books and their FKs but specifically for the authorsbook page. Fetches and displays a list of books in a dropdown menu.
  * 
  * Props:
  * - defaultValue: Default selected book ID.
  * - selectedBookId: ID of the currently selected book.
  * - setSelectedBookId: Function to update the selectedBookId.
  * 
- * Uses the Popover and Command components to create the dropdown menu, and the getAvailableBooks action to only fetch books that are available.
+ * Uses the Popover and Command components to create the dropdown menu, and the getBooks action to fetch books.
  */
-'use client';
+"use client";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -27,10 +27,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getAvailableBooks } from "@/app/utils/Loans/getAvailableBooks";
+import { getBooks } from "@/app/utils/Books/getBooks";
 import { Book } from "@/app/utils/Books/getBooks";
 
-export function BookFK({
+export function AuthorsBooksFK({
   defaultValue,
   selectedBookId,
   setSelectedBookId,
@@ -43,10 +43,9 @@ export function BookFK({
   const [books, setBooks] = React.useState<Book[]>([]);
 
   React.useEffect(() => {
-    // Fetch books from the server using getBooks action constantly
+    // Fetch books from the server using getBooks action
     const fetchBooks = async () => {
-      const response = await getAvailableBooks();
-
+      const response = await getBooks();
       setBooks(response);
     };
 
@@ -67,7 +66,6 @@ export function BookFK({
           aria-expanded={open}
           className="outline-red-700 justify-between"
           disabled={books.length === 0}
-
         >
           {books.length === 0
             ? "No Books Available"
@@ -83,7 +81,22 @@ export function BookFK({
           <CommandInput placeholder="Search book..." />
           <CommandEmpty>No book found.</CommandEmpty>
           <CommandGroup>
-            
+            <CommandItem
+              key="null"
+              value=""
+              onSelect={() => {
+                setSelectedBookId("");
+                setOpen(false);
+              }}
+            >
+              <Check
+                className={cn(
+                  "mr-2 h-4 w-4",
+                  selectedBookId === "" ? "opacity-100" : "opacity-0"
+                )}
+              />
+              None
+            </CommandItem>
             {books.map((book) => (
               <CommandItem
                 key={book.book_id}
@@ -103,7 +116,7 @@ export function BookFK({
                       : "opacity-0"
                   )}
                 />
-                {`${book.title} | id: ${book.book_id}`}
+                {book.title}
               </CommandItem>
             ))}
           </CommandGroup>
