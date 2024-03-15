@@ -1,3 +1,21 @@
+/**
+ * This is the AddBook component. It provides a form for adding a new book to the database.
+ * The component uses the 'addBook' and 'addBookAudit' server actions to add the new record and optionally track it in the book audits.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, Input, Label, and Checkbox.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses a Zod schema to validate the input. If the input is invalid, it displays a toast message with the error message.
+ * 
+ * The component uses a dynamic form to display the fields for adding a book. The fields are defined in the 'fields' state variable.
+ * 
+ * The component uses the 'addBook' function to send a request to the server to add the book. If the response contains an error, it displays a toast message with the error message.
+ * 
+ * If the user chooses to track the book in the book audits, the component uses the 'addBookAudit' function to send a request to the server to add a book audit.
+ * 
+ * If the response is successful, it closes the dialog and displays a 'successful' toast message.
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";

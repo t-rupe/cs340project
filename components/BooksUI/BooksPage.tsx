@@ -1,3 +1,21 @@
+/**
+ * This is the BooksPage component. It displays a list of books in a table.
+ * The component uses the 'deleteBook' server action to delete a book.
+ * 
+ * The component uses several components from the ShadCN UI library, including Table, TableRow, TableHeader, TableCell, TableBody, and DeleteButton.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component receives a 'data' prop, which is an array of books to be displayed.
+ * 
+ * Each book has a 'book_id', 'title', 'isbn', 'book_category', 'book_type', 'book_status', and 'changed_date'.
+ * 
+ * The component maps over the 'books' array and creates a TableRow for each book. Each TableRow contains seven TableCells, one for each property of the book.
+ * 
+ * The component uses the 'AddBook' and 'EditBookDialog' components to provide functionality for adding and editing books.
+ * 
+ * The component uses the 'deleteBook' function to delete a book. The 'deleteBook' function is passed to the 'DeleteButton' component as a prop.
+ */
 "use client";
 import {
   TableHead,

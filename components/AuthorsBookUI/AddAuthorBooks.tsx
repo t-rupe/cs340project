@@ -1,3 +1,24 @@
+/**
+ * This is the AddAuthorsBook component. It provides a form for adding a new AuthorsBook record to the database.
+ * The component uses the 'addAuthorBook' server action to add the new record.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, Label, and toast.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses the 'useFormStatus' hook from React-DOM to track the form submission status.
+ * 
+ * The component uses the 'toast' function from the '@/components/ui/use-toast' module to display toast messages.
+ * 
+ * The component uses the 'z' function from the 'zod' library to validate the input.
+ * 
+ * The component uses the 'AuthorFK' and 'BookFK' components to select an author and a book.
+ * 
+ * The component uses the 'addAuthorBook' function from the '@/app/utils/AuthorBooks/addAuthorsBooks' module to send a request to the server to add the new AuthorsBook record.
+ * 
+ * The component uses the 'useState' hook from React to manage the state of the form.
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";

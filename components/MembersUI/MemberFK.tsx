@@ -1,3 +1,22 @@
+/**
+ * This is the MemberFK component. It provides a dropdown for selecting a member.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, and PopoverTrigger.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses the 'getMembers' function to fetch members from the server. The 'getMembers' function returns an array of members, each with a 'member_id', 'member_first_name', and 'member_last_name'.
+ * 
+ * The component receives a 'defaultValue', 'selectedMemberId', and 'setSelectedMemberId' props. The 'defaultValue' is the default selected member id. The 'selectedMemberId' is the currently selected member id. The 'setSelectedMemberId' is a function to set the selected member id.
+ * 
+ * The component maintains a 'members' state, which is an array of members fetched from the server. It also maintains an 'open' state, which is a boolean indicating whether the dropdown is open.
+ * 
+ * The component maps over the 'members' array and creates a CommandItem for each member. The CommandItem displays the member's first name, last name, and id. If the member's id matches the 'selectedMemberId', it displays a Check icon.
+ * 
+ * The component uses a Popover to display the dropdown. The PopoverTrigger is a Button that displays the selected member's first name and last name, or "Select member..." if no member is selected. The PopoverContent is a Command that contains the CommandItems.
+ * 
+ * The component uses the 'setSelectedMemberId' function to update the 'selectedMemberId' when a CommandItem is selected. If the selected member id is the same as the 'selectedMemberId', it sets the 'selectedMemberId' to an empty string. Otherwise, it sets the 'selectedMemberId' to the selected member id.
+ */
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";

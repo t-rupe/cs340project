@@ -1,3 +1,22 @@
+/**
+ * This is the LoansPage component. It displays a list of loans in a table.
+ * The component uses the 'deleteLoan' server action to delete a loan.
+ * 
+ * The component uses several components from the ShadCN UI library, including Table, TableRow, TableHeader, TableCell, TableBody, and DeleteButton.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component receives a 'data' prop, which is an array of loans to be displayed.
+ * 
+ * Each loan has a 'loan_id', 'loan_status', 'date_checked_out', 'date_due', 'date_returned', 'book_id', 'member_id', and 'changed_date'.
+ * 
+ * The component maps over the 'loans' array and creates a TableRow for each loan. Each TableRow contains eight TableCells, one for each property of the loan.
+ * 
+ * The component uses the 'AddLoan' and 'EditLoanDialog' components to provide functionality for adding and editing loans.
+ * 
+ * The component uses the 'deleteLoan' function to delete a loan. The 'deleteLoan' function is passed to the 'DeleteButton' component as a prop.
+ * 
+ */
 "use client";
 import {
   TableHead,

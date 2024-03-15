@@ -1,3 +1,21 @@
+/**
+ * This is the LoansEdit Dialog component. It provides a dialog for editing a loan.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Input, and Label.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses the 'ComboBoxResponsive' component from '@/components/LoansUI/LoansStatusChange' to provide a dropdown for changing the loan status.
+ * 
+ * The component uses the 'BookFK' and 'MemberFK' components to provide dropdowns for selecting a book and a member.
+ * 
+ * The component receives a 'fields' prop, which is an array of fields to be displayed in the form. Each field has a 'name', 'label', 'defaultValue', 'type', and optional 'isStatusChange', 'isBookId', and 'isMemberId' properties.
+ * 
+ * The component maps over the 'fields' array and creates a form field for each field. If 'isStatusChange' is true, it creates a ComboBoxResponsive. If 'isBookId' is true, it creates a BookFK. If 'isMemberId' is true, it creates a MemberFK. Otherwise, it creates an Input.
+ * 
+ * The component uses a 'DynamicForm' component to display the form fields. The 'DynamicForm' component receives the 'fields' prop and optional 'className' prop.
+ * 
+ */
 "use client";
 import * as React from "react";
 

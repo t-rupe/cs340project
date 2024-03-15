@@ -1,3 +1,21 @@
+/**
+ * This is the AddMember component. It provides a form for adding a new member.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Input, and Label.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component defines a Zod schema for validating the input. The schema requires the first name, last name, phone 1, street 1, city, state, country, and zip code. It also requires the created date and changed date to be dates.
+ * 
+ * The component uses the 'addMember' server action to add a new member. It also uses the 'getMembers' server action to check for existing members with the same first and last name.
+ * 
+ * The component uses a Dialog to display the form. The DialogTrigger is a Button that opens the Dialog. The DialogContent contains the form.
+ * 
+ * The form contains Inputs for the first name, last name, phone 1, phone 2, street 1, street 2, city, state, country, and zip code. It also contains a SubmitButton.
+ * 
+ * The SubmitButton component displays a 'pending' button while the form is being submitted.
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";

@@ -7,6 +7,7 @@
  * - data: Array of author-book associations.
  * 
  * Uses the Table components to display the data, and the AddAuthorBooks and EditAuthorsBook components for adding and editing associations.
+ * Source: https://ui.shadcn.com/
  */
 
 "use client";

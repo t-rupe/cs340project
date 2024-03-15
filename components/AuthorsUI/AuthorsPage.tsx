@@ -1,3 +1,17 @@
+/**
+ * This is the AuthorsPage component. It displays a list of authors in a table.
+ * The component uses the 'deleteAuthor' server action to delete an author.
+ * 
+ * The component uses several components from the ShadCN UI library, including Table, TableRow, TableHeader, TableCell, TableBody, and DeleteButton.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component receives a 'data' prop, which is an array of authors to be displayed.
+ * 
+ * The component uses the 'AddAuthor' and 'EditAuthorDialog' components to provide functionality for adding and editing authors.
+ * 
+ * The component uses the 'deleteAuthor' function to delete an author. The 'deleteAuthor' function is passed to the 'DeleteButton' component as a prop.
+ */
 "use client";
 import {
   TableHead,

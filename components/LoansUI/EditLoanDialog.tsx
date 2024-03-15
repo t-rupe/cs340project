@@ -1,3 +1,20 @@
+/**
+ * This is the EditLoanDialog component. It provides a dialog for editing a loan.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Input, Label, and Select.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses the 'editLoan' server action to edit the loan.
+ * 
+ * The component uses a Zod schema to validate the input. If the input is invalid, it displays a toast message with the error message.
+ * 
+ * The component uses a dynamic form to display the fields for editing a loan. The fields are defined in the 'fields' state variable.
+ * 
+ * The component uses the 'clientAction' function to send a request to the server to edit the loan. If the response contains an error, it displays a toast message with the error message.
+ * 
+ * If the response is successful, it closes the dialog and displays a 'successful' toast message.
+ */
 "use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";

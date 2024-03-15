@@ -1,3 +1,17 @@
+/**
+ * This is the BookAuditsPage component. It displays a list of book audits in a table.
+ * 
+ * The component uses several components from the ShadCN UI library, including Table, TableRow, TableHeader, TableCell, and TableBody.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component receives a 'data' prop, which is an array of book audits to be displayed.
+ * 
+ * Each book audit has a 'book_audit_id', 'book_id', 'book_status', and 'changed_date'.
+ * 
+ * The component maps over the 'audits' array and creates a TableRow for each audit. Each TableRow contains four TableCells, one for each property of the audit.
+ * 
+ */
 "use client";
 import {
   TableHead,

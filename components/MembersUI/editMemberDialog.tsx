@@ -1,3 +1,25 @@
+/**
+ * This is the EditMemberDialog component. It provides a dialog for editing a member.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Input, and Label.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses the 'States' component to provide a dropdown for changing the member's state.
+ * 
+ * The component receives a 'fields' prop, which is an array of fields to be displayed in the form. Each field has a 'name', 'label', 'defaultValue', and 'type' properties.
+ * 
+ * The component maps over the 'fields' array and creates a form field for each field. If the field name is 'state', it creates a States dropdown. Otherwise, it creates an Input.
+ * 
+ * The component uses a 'DynamicForm' component to display the form fields. The 'DynamicForm' component receives the 'fields' prop and optional 'className' prop.
+ * 
+ * The component uses the 'useFormStatus' hook to manage the form submission status and display a 'pending' button while the form is being submitted.
+ * 
+ * The component uses the 'zod' library for form validation. If the form input is invalid, it displays a toast message with the error message.
+ * 
+ * The component uses the 'editMember' function to send a request to edit the member. If the response contains an error, it displays a toast with the error message. If the response is successful, it closes the dialog and displays a 'successful' toast message.
+ * 
+ */
 "use client";
 import * as React from "react";
 

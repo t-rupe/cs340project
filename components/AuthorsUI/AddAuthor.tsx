@@ -1,3 +1,12 @@
+/**
+ * This is the AddAuthor component. It provides a form for adding a new author to the database.
+ * The component uses the 'addAuthor' server action to add the new record.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, Label, and Input.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";

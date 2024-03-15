@@ -1,3 +1,22 @@
+/**
+ * This is the EditBookDialog component. It provides a form for editing an existing book in the database.
+ * The component uses the 'editBook', 'addBookAudit', 'deleteBookAudit', and 'getBookById' server actions to edit the book and optionally track it in the book audits.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, Input, Label, and Checkbox.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses a Zod schema to validate the input. If the input is invalid, it displays a toast message with the error message.
+ * 
+ * The component uses a dynamic form to display the fields for editing a book. The fields are defined in the 'fields' state variable.
+ * 
+ * The component uses the 'editBook' function to send a request to the server to edit the book. If the response contains an error, it displays a toast message with the error message.
+ * 
+ * If the user chooses to track the book in the book audits, the component uses the 'addBookAudit' function to send a request to the server to add a book audit.
+ * If the book is already being tracked in the book audits and the user chooses to stop tracking it, the component uses the 'deleteBookAudit' function to send a request to the server to delete the book audit.
+ * 
+ * If the response is successful, it closes the dialog and displays a 'successful' toast message.
+ */
 "use client";
 import * as React from "react";
 

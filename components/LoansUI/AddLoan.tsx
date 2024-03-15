@@ -1,3 +1,20 @@
+/**
+ * This is the AddLoan component. It provides a form for adding a new loan to the database.
+ * The component uses the 'addLoan', 'getLoans', and 'updateBookStatus' server actions to add the new loan, check if the book is already checked out, and update the book status.
+ * 
+ * The component uses several components from the ShadCN UI library, including Button, Dialog, Label, and DialogTrigger.
+ * The ShadCN UI library provides a set of reusable components for building user interfaces.
+ * Source: https://ui.shadcn.com/
+ * 
+ * The component uses a Zod schema to validate the input. If the input is invalid, it displays a toast message with the error message.
+ * 
+ * The component uses a dynamic form to display the fields for adding a loan. The fields are defined in the 'fields' state variable.
+ * 
+ * The component uses the 'addLoan' function to send a request to the server to add the loan. If the response contains an error, it displays a toast message with the error message.
+ * 
+ * If the response is successful, it closes the dialog, updates the book status, and displays a 'successful' toast message.
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
