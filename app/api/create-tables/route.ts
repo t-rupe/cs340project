@@ -67,11 +67,12 @@ export async function GET() {
 
     // Create AuthorsBooks table
     await sql`CREATE TABLE IF NOT EXISTS AuthorsBooks (
-      author_id INT NOT NULL,
-      book_id INT NOT NULL,
-      PRIMARY KEY (author_id, book_id),
-      FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE CASCADE,
-      FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
+      authorsbooks_id SERIAL PRIMARY KEY,
+      author_id INT,
+      book_id INT,
+      PRIMARY KEY (authorsbooks_id),
+      FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE SET NULL,
+      FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE SET NULL
     );`;
 
     return NextResponse.json({ result }, { status: 200 });

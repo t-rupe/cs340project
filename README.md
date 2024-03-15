@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NexaLibrium - Library Management System
+
+Created by Taylor Rupe & Caleb Kasprzyk
+
+## NexaLibrium is a powerful and intuitive library management system built using Next.js, a popular React framework for server-side rendering and building modern web applications. This project aims to streamline library operations by providing a user-friendly interface for managing books, authors, and their relationships.
+
+## Features
+
+- **CRUD Operations:** NexaLibrium leverages Next.js server actions to implement Create, Read, Update, and Delete (CRUD) operations for most tables. This allows the DB manager to easily manage the library's collection and keep the records up to date.
+
+- **Seamless UI/UX:** The application offers a smooth and intuitive user experience, thanks to the use of ShadCN-UI components. These pre-built UI components provide a sleek and consistent design, enhancing the overall look and feel of the system.
+
+- **Database:** NexaLibrium utilizes a PostgreSQL database provided by Vercel to store and retrieve data efficiently.
+
+- **Deployed on Vercel:** The project is hosted on Vercel, a cloud platform for static sites and serverless functions.
 
 ## Getting Started
 
-First, run the development server:
+To run NexaLibrium locally or deploy it to your own environment, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Install the dependencies:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm install`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set up the PostgreSQL database and update the database connection configuration in the project.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Start the development server:
 
-## Learn More
+`npm run dev`
 
-To learn more about Next.js, take a look at the following resources:
+Open your browser and visit http://localhost:3000 to access NexaLibrium.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Next.js:** A React framework for building server-side rendered and statically generated web apps.
+- **React:** A JavaScript library for building user interfaces.
+- **ShadCN-UI:** A collection of beautifully designed and accessible UI components for React applications.
+- **Aceternity-UI** Beautiful animated components for our homepage.
+- **PostgreSQL:** A powerful and open-source relational database management system.
+- **Vercel:** A cloud platform for deploying static sites and serverless functions.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+
+This project was bootstrapped with create-next-app to provide a starting boilerplate for a nextjs application. By adapting UI components from SHADCN and consulting the NextJs documentation we were able to implement our UI and CRUD operations. 
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [ShadCN-UI Documentation](https://ui.shadcn.com/docs)
+- [VercelDB Documentation](https://vercel.com/docs/storage/vercel-postgres/quickstart)
+
+Happy library management with NexaLibrium!
