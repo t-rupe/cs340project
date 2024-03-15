@@ -1,3 +1,8 @@
+/**
+ * This is a macbook scroll component created by Aceternity UI library, an open source reusuable component provider. This is a primitive component for creating a macbook scroll. 
+ * 
+ * Source: https://ui.aceternity.com/
+ */
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion";

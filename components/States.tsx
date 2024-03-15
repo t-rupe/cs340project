@@ -1,3 +1,16 @@
+/**
+ * This component is a dropdown list of U.S. states, implemented with a popover.
+ * Each state is an item in the dropdown list, and when an item is selected,
+ * the selected state is displayed on the button that triggers the dropdown.
+ * The selected state is also passed to a callback function provided via props.
+ * 
+ * This component uses the following libraries/components:
+ * - lucide-react for icons
+ * - A custom Button component
+ * - A custom Command component for the dropdown list
+ * - A custom Popover component for the dropdown
+ * 
+ */
 "use client";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";

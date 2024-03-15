@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { editAuthor } from "@/app/utils/Authors/editAuthor";
 import { useFormStatus } from "react-dom";
 import { z } from "zod";
-import { toast, useToast } from "./ui/use-toast";
+import { toast, useToast } from "../ui/use-toast";
 
 interface Field {
   name: string;

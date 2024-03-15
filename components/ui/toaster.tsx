@@ -1,3 +1,7 @@
+/**
+ * This code uses components from ShadCN UI library, an open source reusuable component provider. This is a wrapper component for creating a toast.
+ * Source: https://ui.shadcn.com/
+ */
 "use client"
 
 import {

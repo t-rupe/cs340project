@@ -1,3 +1,7 @@
+/**
+ * This code uses components from ShadCN UI library, an open source reusuable component provider. This is a primitive component for creating a command
+ * Source: https://ui.shadcn.com/
+ */
 "use client"
 
 import * as React from "react"

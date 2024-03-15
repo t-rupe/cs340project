@@ -1,3 +1,7 @@
+/**
+ * This code uses components from ShadCN UI library, an open source reusuable component provider. This is a primitive component for creating a toast
+ * Source: https://ui.shadcn.com/
+ */
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"

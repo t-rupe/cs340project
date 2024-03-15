@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
-import { toast, useToast } from "./ui/use-toast";
+import { toast, useToast } from "../ui/use-toast";
 import { z } from "zod";
 import { addMember } from "@/app/utils/Members/addMember";
 import { getMembers } from "@/app/utils/Members/getMembers";

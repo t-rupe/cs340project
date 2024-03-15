@@ -1,3 +1,14 @@
+/**
+ * AuthorsBooksPage Component
+ * 
+ * A page that displays a table of books associated with authors. Allows adding and editing of author-book associations.
+ * 
+ * Props:
+ * - data: Array of author-book associations.
+ * 
+ * Uses the Table components to display the data, and the AddAuthorBooks and EditAuthorsBook components for adding and editing associations.
+ */
+
 "use client";
 
 import {
@@ -9,7 +20,6 @@ import {
   Table,
 } from "@/components/ui/table";
 import AddAuthorBooks from "./AddAuthorBooks";
-import EditBookDialog from "../editBookDialog";
 import EditAuthorsBook from "./EditAuthorsBooks";
 
 type AuthorBook = {

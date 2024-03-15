@@ -11,12 +11,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ComboBoxResponsive } from "@/components/LoansStatusChange";
+import { ComboBoxResponsive } from "@/components/LoansUI/LoansStatusChange";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BookFK } from "./BookFK";
-import { MemberFK } from "./MemberFK";
+import { BookFK } from "../BookFK";
+import { MemberFK } from "../MembersUI/MemberFK";
 
 interface Field {
   name: string;

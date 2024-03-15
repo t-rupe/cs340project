@@ -27,17 +27,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from "@/components/ui/use-toast";
 import { z } from "zod";
 import { editAuthorsBook } from "@/app/utils/AuthorBooks/editAuthorsBooks";
-import { AuthorFK } from "@/components/AuthorFK";
-import { BookFK } from "@/components/BookFK";
 import { Input } from "@/components/ui/input";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import { Check } from "lucide-react";
 import { AuthorsBooksFK } from "./AuthorsBooksFK";
 import { CustomFK } from "./CustomAuthorFK";
 // Zod schema for validating the input

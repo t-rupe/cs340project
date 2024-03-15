@@ -8,9 +8,9 @@ import {
   Table,
 } from "@/components/ui/table";
 import { DeleteButton } from "@/components/AlertDestructive";
-import AddLoan from "./LoansUI/AddLoan";
+import AddLoan from "./AddLoan";
 import { deleteLoan } from "@/app/utils/Loans/deleteLoan";
-import EditLoanDialog from "./LoansUI/EditLoanDialog";
+import EditLoanDialog from "./EditLoanDialog";
 
 type Loan = {
   loan_id: number;

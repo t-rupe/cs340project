@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { addAuthor } from "@/app/utils/Authors/addAuthor";
 import { useFormStatus } from "react-dom";
-import { toast, useToast } from "./ui/use-toast";
+import { toast, useToast } from "../ui/use-toast";
 import { z } from "zod";
 
 // Zod schema for validating the input
@@ -34,7 +34,6 @@ const schema = z.object({
 
 export default function AddAuthor() {
   const [open, setOpen] = React.useState(false);
-  
 
   // Client action to add a new author
   const clientAction = async (formData: FormData) => {
@@ -44,7 +43,7 @@ export default function AddAuthor() {
       last_name: formData.get("last_name"),
     };
 
-    // Validates the input and returns early if the input is invalid. 
+    // Validates the input and returns early if the input is invalid.
     const result = schema.safeParse(author);
     if (!result.success) {
       // Destructures the error message
@@ -107,7 +106,6 @@ export default function AddAuthor() {
 }
 
 function SubmitButton() {
-
   const { pending } = useFormStatus();
 
   // Displays a 'pending' button while the form is being submitted

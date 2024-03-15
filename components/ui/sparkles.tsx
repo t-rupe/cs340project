@@ -1,3 +1,8 @@
+/**
+ * This is a sparkles animation component created by Aceternity UI library, an open source reusuable component provider. This is a primitive component for creating a macbook scroll. 
+ * 
+ * Source: https://ui.aceternity.com/
+ */
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";

@@ -8,25 +8,25 @@ import {
   Table,
 } from "@/components/ui/table";
 import { DeleteButton } from "@/components/AlertDestructive";
-import AddMember from "./AddMember";
+import AddMember from "./MembersUI/AddMember";
 import { deleteMember } from "@/app/utils/Members/deleteMember";
 import { Edit } from "lucide-react";
-import EditMemberDialog from "./editMemberDialog";
+import EditMemberDialog from "./MembersUI/editMemberDialog";
 
 type Member = {
-    member_id: number; 
-    member_first_name: string; 
-    member_last_name: string; 
-    phone_1: string; 
-    phone_2: string; 
-    street_1: string; 
-    street_2: string; 
-    city: string; 
-    state: string; 
-    country: string; 
-    zip_code: string; 
-    created_date: Date; 
-    changed_date: Date; 
+  member_id: number;
+  member_first_name: string;
+  member_last_name: string;
+  phone_1: string;
+  phone_2: string;
+  street_1: string;
+  street_2: string;
+  city: string;
+  state: string;
+  country: string;
+  zip_code: string;
+  created_date: Date;
+  changed_date: Date;
 };
 
 type MemberPageProps = {
@@ -85,7 +85,11 @@ const MembersPage = ({ data }: MemberPageProps) => {
                   {/* Below is the component for the EditmemberDialog */}
                   <EditMemberDialog member={member} />
                   {/* Below is the component for the Delete Dialog, requires an id and the delete action*/}
-                  <DeleteButton id={member.member_id} deleteFunction={deleteMember} type="Member"/>
+                  <DeleteButton
+                    id={member.member_id}
+                    deleteFunction={deleteMember}
+                    type="Member"
+                  />
                 </TableCell>
               </TableRow>
             ))}

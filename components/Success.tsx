@@ -1,3 +1,8 @@
+/**
+ * This code uses components from ShadCN UI library, an open source reusuable component provider.
+ * Source: https://ui.shadcn.com/
+ */
+
 "use client"
 
 import { Button } from "@/components/ui/button"

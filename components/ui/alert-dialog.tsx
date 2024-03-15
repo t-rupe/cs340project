@@ -1,3 +1,8 @@
+/**
+ * This code uses components from ShadCN UI library, an open source reusuable component provider. This is a primitive component for creating an alert dialog
+ * Source: https://ui.shadcn.com/
+ */
+
 "use client"
 
 import * as React from "react"
