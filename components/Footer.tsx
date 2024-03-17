@@ -1,4 +1,7 @@
-
+/**
+ * Github Logo icon provided by icons8
+ * source: https://icons8.com/icons/set/github--animated
+ */
 'use client';
 
 export default async function Footer() {
